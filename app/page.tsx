@@ -1,101 +1,102 @@
-import Image from "next/image";
+"use client";
+import React, { useEffect } from "react";
+import { ChevronsRight, FileText, Github, Instagram, Mail, Phone, Send } from "lucide-react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import SectionMain from "@/components/SectionMain";
+// import Sidebar from "@/components/Sidebar";
 
-export default function Home() {
+const Home = () => {
+  // const handleAnimationComplete = () => {
+  //   console.log("Animation completed!");
+  // };
+  useEffect(() => {
+    AOS.init({
+        duration: 1000,
+        once: true,
+      })
+  }, [])
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <SectionMain>
+          <div className=" w-full h-[200px]" style={{background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%), url('images/bgheader.jpg')"}}>
+            <div className="box-image absolute top-[125px] mx-5 bg-gray-800 p-2 rounded-2xl">
+              <img src="images/justine.jpg" alt="" className="w-[120px] h-[120px] object-cover rounded-[20px]" />
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <div className="px-5">
+          <div className="mt-[80px] px-3 pb-5">
+            <div className="flex items-center gap-3">
+              <h1 className="text-4xl font-bold flex">Jus <div className="text-indigo-400">tine</div></h1>
+              <i className="fa fa-check-circle text-green-400 text-md" />
+            </div>
+            <div className="mt-3 flex flex-col">
+              <b>- Fullstack Developer Berpengalaman - </b>
+              <span className="mt-4 text-justify">Saya berpengalaman dalam dunia pemograman sejak usia 11 tahun. Dengan pengalaman yang saya miliki saat ini, saya Antusias menciptakan berbagai solusi digital yang fungsional, termasuk <span className="bg-indigo-600 px-1">website</span>,<span className="bg-indigo-600 px-1">aplikasi</span>, dan <span className="bg-indigo-600 px-1">design</span>.</span>
+              <div className="mt-4 flex flex-col gap-2">
+                <div className="flex gap-2 items-center">
+                  <ChevronsRight className="text-indigo-400" /> 
+                  <span>Terbuka untuk kesempatan kerjasama projek yang menarik</span>
+                  {/* <FontAwesomeIcon icon={faBriefcase} className="text-indigo-400"/> */}
+                </div>
+                <div className="flex gap-2 items-center">
+                  <ChevronsRight className="text-indigo-400" /> 
+                  <span>Selalu update dengan teknolgi terbaru</span>
+                  {/* <FontAwesomeIcon icon={faRocket} className="text-indigo-400"/> */}
+                </div>
+                <div className="flex gap-2 items-center">
+                  <ChevronsRight className="text-indigo-400" /> 
+                  <span>Berdomisili di Bogor, Jawa Barat, Indonesia.</span>
+                  {/* <FontAwesomeIcon icon={faMapMarkerAlt} className="text-indigo-400"/> */}
+                </div>
+              </div>
+            </div>
+            <div className="w-full text-[15px] flex gap-3 justify-between py-5 mt-4">
+              <div onClick={() => window.open('mailto:justinebogor0609@gmail.com')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+                <Mail size={18} />
+                <span>Email</span>
+              </div>
+              <div onClick={() => window.open('https://www.instagram.com/zerr.ace/')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+                <Instagram size={18} />
+                <span>Instagram</span>
+              </div>
+              <div onClick={() => window.open('https://github.com/tineetech')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+                <Github size={18} />
+                <span>Github</span>
+              </div>
+              <div onClick={() => window.open('https://t.me/zerrzy')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+                <Send size={18} />
+                <span>Telegram</span>
+              </div>
+            </div>
+            <hr className="mt-4 text-gray-900" />
+            <div className="w-full p-5 bg-gray-700 rounded-[10px] mt-8">
+              <div className="flex items-center gap-3">
+                {/* <FontAwesomeIcon icon={faRocket} className="text-indigo-400"/> */}
+                <h1 className="text-[18px]">Mari Bekerja Sama !</h1>
+              </div>
+              <div className="mt-2">
+                <p className="mb-4">Sebagai Freelancer, saya membuka kesempatan untuk proyek freelance website, aplikasi maupun design dan lainnya, jangan ragu untuk mengirim email kepada saya untuk melihat bagaimana kita bisa berkolaborasi.</p>
+                
+                <div className="w-full text-[15px] flex gap-3 justify-between">
+                  <div onClick={() => window.open('https://wa.me/6287774487198')} className="w-full flex justify-center items-center gap-3 py-4 hover:bg-indigo-600 transition-all ease-in-out cursor-pointer bg-indigo-600 rounded-[10px]">
+                    <Phone size={18} />
+                    <span>Hubungi Saya</span>
+                  </div>
+                  <div onClick={() => window.open('/files/JUSTINE_CV_2025.pdf')} className="w-full flex justify-center items-center gap-3 py-4 hover:bg-indigo-600 transition-all ease-in-out cursor-pointer bg-indigo-600 rounded-[10px]">
+                    <FileText size={18} />
+                    <span>Lihat CV</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </SectionMain>
+    </>
   );
-}
+};
+
+export default Home;
