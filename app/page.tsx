@@ -4,12 +4,9 @@ import { ChevronsRight, FileText, Github, Instagram, Mail, Phone, Send } from "l
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SectionMain from "@/components/SectionMain";
-// import Sidebar from "@/components/Sidebar";
+import LayoutMain from "@/components/LayoutMain";
 
 const Home = () => {
-  // const handleAnimationComplete = () => {
-  //   console.log("Animation completed!");
-  // };
   useEffect(() => {
     AOS.init({
         duration: 1000,
@@ -19,6 +16,7 @@ const Home = () => {
 
   return (
     <>
+    <LayoutMain>
       <SectionMain>
           <div className=" w-full h-[200px]" style={{background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%), url('images/bgheader.jpg')"}}>
             <div className="box-image absolute top-[125px] mx-5 bg-gray-800 p-2 rounded-2xl">
@@ -95,6 +93,7 @@ const Home = () => {
           </div>
           </div>
       </SectionMain>
+    </LayoutMain>
     </>
   );
 };

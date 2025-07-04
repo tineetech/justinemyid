@@ -3,10 +3,7 @@ import localFont from "next/font/local";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import '@ionic/core/css/core.css';
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-import Beams from "@/components/Beams";
-import Squares from "@/components/Squares";
-// Tidak perlu import Head di sini, Next.js 14 menangani ini secara internal untuk <link>
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       {/* Ini adalah tempat yang tepat untuk tag <link> di App Router */}
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
@@ -38,29 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="w-full px-10 md:flex justify-center gap-7 items-center relative h-screen overflow-hidden bg-gray-900 text-gray-300 overflow-y-auto">
-          {/* <Beams
-            beamWidth={2}
-            beamHeight={15}
-            beamNumber={12}
-            lightColor="#ffffff"
-            speed={2}
-            noiseIntensity={1.75}
-            scale={0.2}
-            rotation={0}
-          /> */}
-          <Squares 
-            speed={1} 
-            squareSize={20}
-            direction='diagonal' // up, down, left, right, diagonal
-            // borderColor='#4f46e5'
-            borderColor='#1f2937'
-            hoverFillColor='#374151'
-            />
-          {/* sidebar */}
-          <Sidebar />
-          {children}
-        </main>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
       </body>
     </html>
   );
