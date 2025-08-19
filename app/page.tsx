@@ -51,25 +51,25 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full text-[15px] flex gap-3 justify-between py-5 mt-4">
-              <div onClick={() => window.open('mailto:justinebogor0609@gmail.com')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+            <div className="w-full text-[15px] flex flex-col md:flex-row gap-3 justify-between py-5 mt-4">
+              <div onClick={() => window.open('mailto:justinebogor0609@gmail.com')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Mail size={18} />
                 <span>Email</span>
               </div>
-              <div onClick={() => window.open('https://www.instagram.com/zerr.ace/')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+              <div onClick={() => window.open('https://www.instagram.com/zerr.ace/')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Instagram size={18} />
                 <span>Instagram</span>
               </div>
-              <div onClick={() => window.open('https://github.com/tineetech')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+              <div onClick={() => window.open('https://github.com/tineetech')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Github size={18} />
                 <span>Github</span>
               </div>
-              <div onClick={() => window.open('https://t.me/zerrzy')} className="w-full flex justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+              <div onClick={() => window.open('https://t.me/zerrzy')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Send size={18} />
                 <span>Telegram</span>
               </div>
             </div>
-            <hr className="mt-4 text-gray-900" />
+            <hr className="mt-4 border-t border-white border-opacity-100" />
             <div className="w-full p-5 bg-gray-700 rounded-[10px] mt-8">
               <div className="flex items-center gap-3">
                 {/* <FontAwesomeIcon icon={faRocket} className="text-indigo-400"/> */}
@@ -78,7 +78,7 @@ const Home = () => {
               <div className="mt-2">
                 <p className="mb-4">Sebagai Freelancer, saya membuka kesempatan untuk proyek freelance website, aplikasi maupun design dan lainnya, jangan ragu untuk mengirim email kepada saya untuk melihat bagaimana kita bisa berkolaborasi.</p>
                 
-                <div className="w-full text-[15px] flex gap-3 justify-between">
+                <div className="w-full flex-col md:flex-row text-[15px] flex gap-3 justify-between">
                   <div onClick={() => window.open('https://wa.me/6287774487198')} className="w-full flex justify-center items-center gap-3 py-4 hover:bg-indigo-600 transition-all ease-in-out cursor-pointer bg-indigo-600 rounded-[10px]">
                     <Phone size={18} />
                     <span>Hubungi Saya</span>

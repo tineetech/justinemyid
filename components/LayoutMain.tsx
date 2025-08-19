@@ -5,7 +5,7 @@ import Squares from "@/components/Squares";
 
 const LayoutMain = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="w-full px-10 md:flex justify-center gap-7 items-center relative h-screen overflow-hidden bg-gray-900 text-gray-300 overflow-y-auto">
+    <main className="w-full md:flex justify-center gap-7 items-center relative h-screen overflow-hidden bg-gray-900 text-gray-300 overflow-y-auto">
       <Squares
         speed={1}
         squareSize={20}
@@ -13,8 +13,10 @@ const LayoutMain = ({ children }: { children: React.ReactNode }) => {
         borderColor='#1f2937'
         hoverFillColor='#374151'
       />
-      <Sidebar />
-      {children}
+      <div className='px-5 md:px-10 gap-7 w-full overlay-hidden h-screen flex items-center'>
+        <Sidebar />
+        {children}
+      </div>
     </main>
   );
 };

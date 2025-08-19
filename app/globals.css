@@ -30,12 +30,51 @@
     position: fixed;
     top: 0;
     z-index: 9999;
-    left: 0;
+    left: -200px;
     height: 100vh;
     border-radius: 0;
   }
+  .activeMobileSidebar {
+    left: 0;
+  }
+  .toggler {
+    position: fixed;
+    top: 10px;
+    z-index: 9999;
+    left: 0;
+  }
+  .toggler div {
+    border-radius: 0 10px 10px 0;
+  }
 }
 
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marqueeMiss {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-miss {
+  display: flex;
+  animation: marqueeMiss 25s linear infinite;
+}
+
+.animate-marquee-miss:hover {
+  animation-play-state: paused;
+}
 
 
 @layer base {
