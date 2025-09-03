@@ -1,12 +1,14 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
+  binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 
 model User {
   id        Int      @id @default(autoincrement())
