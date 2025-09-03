@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     eslint: {
-    ignoreDuringBuilds: true,
+      ignoreDuringBuilds: true,
+    },
+    images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.public.blob.vercel-storage.com",
+      },
+    ],
   },
 };
 

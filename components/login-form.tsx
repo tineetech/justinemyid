@@ -41,8 +41,12 @@ export function LoginForm({
         // Simpan token di localStorage
         localStorage.setItem("token", data.token)
         alert("Login success! 🎉")
-        // redirect ke dashboard misalnya
-        window.location.href = "/dashboard"
+        if (data.user.role === 'admin') {
+          // redirect ke dashboard misalnya
+          window.location.href = "/dashboard"
+        } else {
+          window.location.href = "/"
+        }
       }
     } catch {
       setError("Something went wrong")

@@ -2,11 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
+body {
+  pointer-events: auto !important;
+}
+
 .squares-canvas {
   width: 100%;
   height: 100%;

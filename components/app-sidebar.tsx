@@ -44,6 +44,18 @@ const data = {
           title: "Sertifikasi",
           url: "/manage/sertifikat",
         },
+        {
+          title: "Skills",
+          url: "/manage/skils",
+        },
+        {
+          title: "Porto Jenis",
+          url: "/manage/porto-jenis",
+        },
+        {
+          title: "Portofolios",
+          url: "/manage/portofolios",
+        },
       ],
     },
   ],
