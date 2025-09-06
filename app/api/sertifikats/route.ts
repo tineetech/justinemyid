@@ -14,10 +14,10 @@ function checkAuth(req: Request) {
 }
 
 // GET /api/sertifikats
-export async function GET(req: Request) {
-  const user = checkAuth(req);
-  if (!user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+export async function GET() {
+  // const user = checkAuth(req);
+  // if (!user)
+  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const sertifikats = await prisma.sertifikat.findMany({
     orderBy: { createdAt: "desc" },

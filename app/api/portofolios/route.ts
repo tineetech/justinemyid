@@ -13,9 +13,9 @@ function checkAuth(req: Request) {
 }
 
 // GET /api/portofolios
-export async function GET(req: Request) {
-  const user = checkAuth(req)
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+export async function GET() {
+  // const user = checkAuth(req)
+  // if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const portofolios = await prisma.portofolio.findMany({
     include: { PortoJenis: true },

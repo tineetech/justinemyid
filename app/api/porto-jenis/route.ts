@@ -12,9 +12,9 @@ function checkAuth(req: Request) {
 }
 
 // GET /api/porto-jenis
-export async function GET(req: Request) {
-  const user = checkAuth(req)
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+export async function GET() {
+  // const user = checkAuth(req)
+  // if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const portoJenis = await prisma.portoJenis.findMany({
     orderBy: { createdAt: "desc" },

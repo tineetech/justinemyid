@@ -5,8 +5,9 @@ import SectionMain from "@/components/SectionMain"
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FaCode, FaPalette, FaCube, FaLayerGroup } from "react-icons/fa"
+import Image from "next/image"
 
 const categories = [
   { key: "all", label: "Semua", icon: <FaLayerGroup /> },
@@ -16,68 +17,71 @@ const categories = [
   { key: "product", label: "Produk", icon: <FaCube /> },
 ]
 
-const projects = [
-  {
-    title: "Personal Portfolio",
-    desc: "My Personal web portfolio is built with Fullstack Next.js framework as the...",
-    category: "code",
-    type: "Proyek Sumber Terbuka",
-    featured: true,
-    link: "https://dwiwijaya.vercel.app",
-    image: "/images/bgheader.jpg",
-  },
-  {
-    title: "Lazyplay",
-    desc: "A web application for creating and playing a dynamic playlist.",
-    category: "product",
-    type: "Proyek Pribadi",
-    featured: true,
-    link: "#",
-    image: "/portfolio2.png",
-  },
-  {
-    title: "myLink",
-    desc: "Linktree clone with some customization features.",
-    category: "code",
-    type: "Proyek Sumber Terbuka",
-    featured: true,
-    link: "#",
-    image: "/portfolio3.png",
-  },
-  {
-    title: "Personal Portfolio",
-    desc: "My Personal web portfolio is built with Fullstack Next.js framework as the...",
-    category: "code",
-    type: "Proyek Sumber Terbuka",
-    featured: true,
-    link: "https://dwiwijaya.vercel.app",
-    image: "/portfolio1.png",
-  },
-  {
-    title: "Lazyplay",
-    desc: "A web application for creating and playing a dynamic playlist.",
-    category: "product",
-    type: "Proyek Pribadi",
-    featured: true,
-    link: "#",
-    image: "/portfolio2.png",
-  },
-  {
-    title: "myLink",
-    desc: "Linktree clone with some customization features.",
-    category: "code",
-    type: "Proyek Sumber Terbuka",
-    featured: true,
-    link: "#",
-    image: "/portfolio3.png",
-  },
-]
+interface PortoJenisResponse {
+  name: string;
+}
+
+interface PortoResponse {
+  no: number;
+  title: string;
+  description: string;
+  category: string;
+  type: string;
+  isPrimary: boolean;
+  PortoJenis: PortoJenisResponse;
+  url: string;
+  image: string;
+}
+
+interface Porto {
+  no: number;
+  title: string;
+  desc: string;
+  category: string;
+  type: string;
+  featured: boolean;
+  link: string;
+  image: string;
+}
 
 const PageClient = () => {
   const [filter, setFilter] = useState("all")
+  const [porto, setPorto] = useState<Porto[]>([])
+  const [loading, setLoading] = useState(false)
+
+  const fetchPorto = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/portofolios')
+
+      const json = await res.json()
+      
+      const mapped = json.map((item: PortoResponse, index: number) => ({
+        ...item,
+        no: index++,
+        title: item.title,
+        desc: item.description,
+        category: item.category,
+        type: item.PortoJenis.name,
+        featured: item.isPrimary,
+        link: item.url,
+        image: item.image
+      }))
+      setPorto(mapped)
+
+      setLoading(false)
+    } catch {
+      console.error('Error while fetching portofolio')
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchPorto()
+  }, [])
 
   const filteredProjects =
-    filter === "all" ? projects : projects.filter((p) => p.category === filter)
+    filter === "all" ? porto : porto.filter((p) => p.category === filter)
 
   return (
     <LayoutMain>
@@ -115,14 +119,23 @@ const PageClient = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project, i) => (
+        <div className="grid relative gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {loading ? (
+            <>
+              <div className="overflow-hidden bg-gray-200 bg-opacity-30 animate-pulse border-gray-700 hover:bg-gray-700 transition rounded-2xl w-[100%] h-[300px]"></div>
+              <div className="overflow-hidden bg-gray-200 bg-opacity-30 animate-pulse border-gray-700 hover:bg-gray-700 transition rounded-2xl w-[100%] h-[300px]"></div>
+              <div className="overflow-hidden bg-gray-200 bg-opacity-30 animate-pulse border-gray-700 hover:bg-gray-700 transition rounded-2xl w-[100%] h-[300px]"></div>
+            </>
+          ) : filteredProjects.length > 0 ? filteredProjects.map((project, i) => (
             <Card
               key={i}
+              onClick={() => window.open(project.link)}
               className="overflow-hidden bg-gray-800 border-gray-700 hover:bg-gray-700 transition rounded-2xl"
             >
               <div className="relative">
-                <img
+                <Image
+                  width={100}
+                  height={100}
                   src={project.image}
                   alt={project.title}
                   className="w-full h-40 object-cover"
@@ -143,7 +156,11 @@ const PageClient = () => {
                 <p className="text-sm text-gray-300">{project.desc}</p>
               </CardContent>
             </Card>
-          ))}
+          )) : (
+            <div className="bg-gray-700 w-full h-[400px] absolute rounded-xl flex justify-center items-center text-center">
+              Tidak ada data.
+            </div>
+          )}
         </div>
       </SectionMain>
     </LayoutMain>

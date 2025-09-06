@@ -63,6 +63,16 @@ model Skill {
   updatedAt DateTime
 }
 
+model Skill {
+  id        Int         @id @default(autoincrement())
+  name      String
+  image     String
+  bagan     Int
+  status    SkillStatus
+  createdAt DateTime    @default(now())
+  updatedAt DateTime
+}
+
 enum PortfolioStatus {
   active
   ongoing

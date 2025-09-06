@@ -8,6 +8,16 @@
     text-wrap: balance;
   }
 }
+.logoloop::-webkit-scrollbar {
+  display: none;
+}
+.logoloop {
+  overflow: auto !important;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: white; /* biar kelihatan di dark background */
+}
 
 body {
   pointer-events: auto !important;
