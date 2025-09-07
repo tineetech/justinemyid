@@ -17,6 +17,8 @@ model User {
   password  String
   updatedAt DateTime @updatedAt
   role      String
+
+  communities Community[]
 }
 
 model PortoJenis {
@@ -60,6 +62,23 @@ model Skill {
   status    SkillStatus
   createdAt DateTime    @default(now())
   updatedAt DateTime
+}
+
+model Community {
+  id      Int             @id @default(autoincrement())
+  userId  Int? // bisa null
+  user    User?           @relation(fields: [userId], references: [id])
+  message String // isi pesan / deskripsi
+  status  CommunityStatus @default(active)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CommunityStatus {
+  active
+  draft
+  archived
 }
 
 enum PortfolioStatus {
