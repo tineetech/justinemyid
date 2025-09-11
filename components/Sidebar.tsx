@@ -6,7 +6,7 @@ const Sidebar = () => {
     const [isClick, setIsClick] = useState(false)
     const path = usePathname()
   return (
-    <div className={`${isClick ? 'w-[400px] activeMobileSidebar' : 'w-[90px]'} relative overflow-  p-2 main-sidebar md:h-[90%] transition-all ease-in-out bg-gray-800 rounded-2xl`}>
+    <div className={`${isClick ? 'w-[400px] activeMobileSidebar' : 'w-[90px]'} relative overflow-  p-2 main-sidebar md:h-[90%] transition-all ease-in-out bg-gray-900 rounded-2xl`}>
         <div className={` absolute start-0  pl-5 h-full `} style={{fontSize: '23px', zIndex: 999}}>
             <div className='flex flex-col w-full h-full justify-center itemce relative'>
                 <div className='toggler'>
@@ -68,10 +68,10 @@ const Sidebar = () => {
                 </div>
             </div>
         </div>
-        <div className={`p-5 absolute ${isClick ? 'flex' : 'hidden'} flex-col end-0 w-[77%] h-full`}>
+        <div className={`p-5 absolute ${isClick ? 'flex' : 'hidden'} flex-col end-0 w-[85%] md:w-[77%] h-full`}>
             <div className=''>
                 <h1>Selamat Datang !</h1>
-                <span className='text-gray-500 text-sm'>Website Justine 2025.</span>
+                <span className='text-gray-500 text-sm'>Website Justine {new Date().getFullYear()}.</span>
             </div>
         </div>
     </div>

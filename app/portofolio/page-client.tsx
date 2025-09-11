@@ -49,6 +49,18 @@ const PageClient = () => {
   const [porto, setPorto] = useState<Porto[]>([])
   const [loading, setLoading] = useState(false)
 
+  const validateImage = async (url: string): Promise<string> => {
+    try {
+      const res = await fetch(url, { method: "HEAD" })
+      if (res.ok && res.headers.get("content-type")?.startsWith("image/")) {
+        return url
+      }
+      return "/images/default-project.png"
+    } catch {
+      return "/images/default-project.png"
+    }
+  }
+
   const fetchPorto = async () => {
     setLoading(true)
     try {
@@ -56,17 +68,21 @@ const PageClient = () => {
 
       const json = await res.json()
       
-      const mapped = json.map((item: PortoResponse, index: number) => ({
-        ...item,
-        no: index++,
-        title: item.title,
-        desc: item.description,
-        category: item.category,
-        type: item.PortoJenis.name,
-        featured: item.isPrimary,
-        link: item.url,
-        image: item.image
+      const mapped = await Promise.all(json.map(async (item: PortoResponse, index: number) => {
+        const validImage = await validateImage(item.image)
+        return {
+          ...item,
+          no: index++,
+          title: item.title,
+          desc: item.description,
+          category: item.category,
+          type: item.PortoJenis.name,
+          featured: item.isPrimary,
+          link: item.url,
+          image: validImage,
+        }
       }))
+
       setPorto(mapped)
 
       setLoading(false)
@@ -85,7 +101,7 @@ const PageClient = () => {
 
   return (
     <LayoutMain>
-      <SectionMain className="p-5">
+      <SectionMain className="p-5 pt-[100px]">
         {/* Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-white">Portofolio</h2>

@@ -4,6 +4,7 @@ import * as React from "react"
 import {
   Frame,
   SquareTerminal,
+  WholeWord,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -56,7 +57,17 @@ const data = {
           title: "Portofolios",
           url: "/manage/portofolios",
         },
+        {
+          title: "Experience",
+          url: "/manage/experience",
+        },
       ],
+    },
+    {
+      title: "CMS",
+      url: "/manage/cms",
+      icon: WholeWord,
+      items: []
     },
   ],
 }

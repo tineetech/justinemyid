@@ -15,10 +15,6 @@ export function verifyToken(token: string): ResToken | null {
   try {
     const decoded = jwt.verify(token, SECRET);
 
-    // type guard -> pastikan hasilnya object bukan string
-    if (typeof decoded === "string") {
-      return null;
-    }
 
     // pastikan ada id & email
     return decoded as ResToken;

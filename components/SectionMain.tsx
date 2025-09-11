@@ -3,7 +3,7 @@ import React from 'react';
 
 const SectionMain = ({ className = '', style = {}, children }: any) => {
   // Kelas default yang Anda inginkan
-  const defaultClasses = "relative w-full h-[90%] pb-5 scroll-hide rounded-2xl bg-gray-800 overflow-auto";
+  const defaultClasses = "relative w-full md:h-[90%] h-[100%] pb-5 scroll-hide md:rounded-2xl bg-gray-800 overflow-auto";
 
   // Gabungkan kelas default dengan kelas tambahan dari props
   const combinedClasses = `${defaultClasses} ${className}`.trim();

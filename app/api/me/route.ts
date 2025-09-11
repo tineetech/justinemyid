@@ -17,6 +17,7 @@ function checkAuth(req: Request) {
 export async function GET(req: Request) {
   try {
     const payload = checkAuth(req);
+    console.log(payload)
     if (!payload) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

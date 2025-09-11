@@ -39,8 +39,6 @@ export async function POST(req: Request) {
   if (!image) missingFields.push("image");
   if (!status) missingFields.push("status");
   if (!url) missingFields.push("url");
-  if (!isPrimary) missingFields.push("isPrimary");
-  if (!category) missingFields.push("category");
   if (!description) missingFields.push("description");
 
   if (missingFields.length > 0) {
@@ -58,8 +56,8 @@ export async function POST(req: Request) {
         image,
         url,
         description,
-        isPrimary,
-        category,
+        isPrimary: isPrimary ?? false,
+        category: category ?? '',
         status,
         updatedAt: new Date(),
       },

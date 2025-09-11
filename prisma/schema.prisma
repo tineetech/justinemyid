@@ -71,10 +71,39 @@ model Community {
   user      User?     @relation(fields: [userId], references: [id])
   message   String                        // isi pesan / deskripsi
   status    CommunityStatus @default(active)
-
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
+
+model Experience {
+  id          Int             @id @default(autoincrement())
+  type        ExperienceType  // kerja atau lomba
+  title       String
+  institution String          // perusahaan, event, organisasi, kampus, dll
+  startDate DateTime
+  endDate   DateTime?
+  description String?
+  status      Status          @default(active)
+
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model Cms {
+  id          Int             @id @default(autoincrement())
+  name        String
+  content     String?
+  status      Status          @default(active)
+
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+enum ExperienceType {
+  work
+  competition
+}
+
 
 enum CommunityStatus {
   active

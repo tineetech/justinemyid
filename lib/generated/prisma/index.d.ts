@@ -43,12 +43,30 @@ export type Skill = $Result.DefaultSelection<Prisma.$SkillPayload>
  * 
  */
 export type Community = $Result.DefaultSelection<Prisma.$CommunityPayload>
+/**
+ * Model Experience
+ * 
+ */
+export type Experience = $Result.DefaultSelection<Prisma.$ExperiencePayload>
+/**
+ * Model Cms
+ * 
+ */
+export type Cms = $Result.DefaultSelection<Prisma.$CmsPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const CommunityStatus: {
+  export const ExperienceType: {
+  work: 'work',
+  competition: 'competition'
+};
+
+export type ExperienceType = (typeof ExperienceType)[keyof typeof ExperienceType]
+
+
+export const CommunityStatus: {
   active: 'active',
   draft: 'draft',
   archived: 'archived'
@@ -82,6 +100,10 @@ export const Status: {
 export type Status = (typeof Status)[keyof typeof Status]
 
 }
+
+export type ExperienceType = $Enums.ExperienceType
+
+export const ExperienceType: typeof $Enums.ExperienceType
 
 export type CommunityStatus = $Enums.CommunityStatus
 
@@ -276,6 +298,26 @@ export class PrismaClient<
     * ```
     */
   get community(): Prisma.CommunityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.experience`: Exposes CRUD operations for the **Experience** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Experiences
+    * const experiences = await prisma.experience.findMany()
+    * ```
+    */
+  get experience(): Prisma.ExperienceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cms`: Exposes CRUD operations for the **Cms** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cms
+    * const cms = await prisma.cms.findMany()
+    * ```
+    */
+  get cms(): Prisma.CmsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -721,7 +763,9 @@ export namespace Prisma {
     Portofolio: 'Portofolio',
     Sertifikat: 'Sertifikat',
     Skill: 'Skill',
-    Community: 'Community'
+    Community: 'Community',
+    Experience: 'Experience',
+    Cms: 'Cms'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -740,7 +784,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "portoJenis" | "portofolio" | "sertifikat" | "skill" | "community"
+      modelProps: "user" | "portoJenis" | "portofolio" | "sertifikat" | "skill" | "community" | "experience" | "cms"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1188,6 +1232,154 @@ export namespace Prisma {
           }
         }
       }
+      Experience: {
+        payload: Prisma.$ExperiencePayload<ExtArgs>
+        fields: Prisma.ExperienceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExperienceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExperienceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          findFirst: {
+            args: Prisma.ExperienceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExperienceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          findMany: {
+            args: Prisma.ExperienceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>[]
+          }
+          create: {
+            args: Prisma.ExperienceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          createMany: {
+            args: Prisma.ExperienceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExperienceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>[]
+          }
+          delete: {
+            args: Prisma.ExperienceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          update: {
+            args: Prisma.ExperienceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExperienceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExperienceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExperienceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExperienceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExperiencePayload>
+          }
+          aggregate: {
+            args: Prisma.ExperienceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExperience>
+          }
+          groupBy: {
+            args: Prisma.ExperienceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExperienceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExperienceCountArgs<ExtArgs>
+            result: $Utils.Optional<ExperienceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Cms: {
+        payload: Prisma.$CmsPayload<ExtArgs>
+        fields: Prisma.CmsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CmsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CmsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>
+          }
+          findFirst: {
+            args: Prisma.CmsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CmsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>
+          }
+          findMany: {
+            args: Prisma.CmsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>[]
+          }
+          create: {
+            args: Prisma.CmsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>
+          }
+          createMany: {
+            args: Prisma.CmsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CmsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>[]
+          }
+          delete: {
+            args: Prisma.CmsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>
+          }
+          update: {
+            args: Prisma.CmsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>
+          }
+          deleteMany: {
+            args: Prisma.CmsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CmsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CmsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>[]
+          }
+          upsert: {
+            args: Prisma.CmsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CmsPayload>
+          }
+          aggregate: {
+            args: Prisma.CmsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCms>
+          }
+          groupBy: {
+            args: Prisma.CmsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CmsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CmsCountArgs<ExtArgs>
+            result: $Utils.Optional<CmsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1286,6 +1478,8 @@ export namespace Prisma {
     sertifikat?: SertifikatOmit
     skill?: SkillOmit
     community?: CommunityOmit
+    experience?: ExperienceOmit
+    cms?: CmsOmit
   }
 
   /* Types for Logging */
@@ -8065,6 +8259,2142 @@ export namespace Prisma {
 
 
   /**
+   * Model Experience
+   */
+
+  export type AggregateExperience = {
+    _count: ExperienceCountAggregateOutputType | null
+    _avg: ExperienceAvgAggregateOutputType | null
+    _sum: ExperienceSumAggregateOutputType | null
+    _min: ExperienceMinAggregateOutputType | null
+    _max: ExperienceMaxAggregateOutputType | null
+  }
+
+  export type ExperienceAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ExperienceSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ExperienceMinAggregateOutputType = {
+    id: number | null
+    type: $Enums.ExperienceType | null
+    title: string | null
+    institution: string | null
+    startDate: Date | null
+    endDate: Date | null
+    description: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExperienceMaxAggregateOutputType = {
+    id: number | null
+    type: $Enums.ExperienceType | null
+    title: string | null
+    institution: string | null
+    startDate: Date | null
+    endDate: Date | null
+    description: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExperienceCountAggregateOutputType = {
+    id: number
+    type: number
+    title: number
+    institution: number
+    startDate: number
+    endDate: number
+    description: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ExperienceAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ExperienceSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ExperienceMinAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    institution?: true
+    startDate?: true
+    endDate?: true
+    description?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExperienceMaxAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    institution?: true
+    startDate?: true
+    endDate?: true
+    description?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExperienceCountAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    institution?: true
+    startDate?: true
+    endDate?: true
+    description?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ExperienceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Experience to aggregate.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Experiences
+    **/
+    _count?: true | ExperienceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExperienceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExperienceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExperienceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExperienceMaxAggregateInputType
+  }
+
+  export type GetExperienceAggregateType<T extends ExperienceAggregateArgs> = {
+        [P in keyof T & keyof AggregateExperience]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExperience[P]>
+      : GetScalarType<T[P], AggregateExperience[P]>
+  }
+
+
+
+
+  export type ExperienceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExperienceWhereInput
+    orderBy?: ExperienceOrderByWithAggregationInput | ExperienceOrderByWithAggregationInput[]
+    by: ExperienceScalarFieldEnum[] | ExperienceScalarFieldEnum
+    having?: ExperienceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExperienceCountAggregateInputType | true
+    _avg?: ExperienceAvgAggregateInputType
+    _sum?: ExperienceSumAggregateInputType
+    _min?: ExperienceMinAggregateInputType
+    _max?: ExperienceMaxAggregateInputType
+  }
+
+  export type ExperienceGroupByOutputType = {
+    id: number
+    type: $Enums.ExperienceType
+    title: string
+    institution: string
+    startDate: Date
+    endDate: Date | null
+    description: string | null
+    status: $Enums.Status
+    createdAt: Date
+    updatedAt: Date
+    _count: ExperienceCountAggregateOutputType | null
+    _avg: ExperienceAvgAggregateOutputType | null
+    _sum: ExperienceSumAggregateOutputType | null
+    _min: ExperienceMinAggregateOutputType | null
+    _max: ExperienceMaxAggregateOutputType | null
+  }
+
+  type GetExperienceGroupByPayload<T extends ExperienceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExperienceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExperienceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExperienceGroupByOutputType[P]>
+            : GetScalarType<T[P], ExperienceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExperienceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    institution?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    description?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["experience"]>
+
+  export type ExperienceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    institution?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    description?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["experience"]>
+
+  export type ExperienceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    institution?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    description?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["experience"]>
+
+  export type ExperienceSelectScalar = {
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    institution?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    description?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ExperienceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "title" | "institution" | "startDate" | "endDate" | "description" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["experience"]>
+
+  export type $ExperiencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Experience"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      type: $Enums.ExperienceType
+      title: string
+      institution: string
+      startDate: Date
+      endDate: Date | null
+      description: string | null
+      status: $Enums.Status
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["experience"]>
+    composites: {}
+  }
+
+  type ExperienceGetPayload<S extends boolean | null | undefined | ExperienceDefaultArgs> = $Result.GetResult<Prisma.$ExperiencePayload, S>
+
+  type ExperienceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExperienceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExperienceCountAggregateInputType | true
+    }
+
+  export interface ExperienceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Experience'], meta: { name: 'Experience' } }
+    /**
+     * Find zero or one Experience that matches the filter.
+     * @param {ExperienceFindUniqueArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExperienceFindUniqueArgs>(args: SelectSubset<T, ExperienceFindUniqueArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Experience that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExperienceFindUniqueOrThrowArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExperienceFindUniqueOrThrowArgs>(args: SelectSubset<T, ExperienceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Experience that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceFindFirstArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExperienceFindFirstArgs>(args?: SelectSubset<T, ExperienceFindFirstArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Experience that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceFindFirstOrThrowArgs} args - Arguments to find a Experience
+     * @example
+     * // Get one Experience
+     * const experience = await prisma.experience.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExperienceFindFirstOrThrowArgs>(args?: SelectSubset<T, ExperienceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Experiences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Experiences
+     * const experiences = await prisma.experience.findMany()
+     * 
+     * // Get first 10 Experiences
+     * const experiences = await prisma.experience.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const experienceWithIdOnly = await prisma.experience.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExperienceFindManyArgs>(args?: SelectSubset<T, ExperienceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Experience.
+     * @param {ExperienceCreateArgs} args - Arguments to create a Experience.
+     * @example
+     * // Create one Experience
+     * const Experience = await prisma.experience.create({
+     *   data: {
+     *     // ... data to create a Experience
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExperienceCreateArgs>(args: SelectSubset<T, ExperienceCreateArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Experiences.
+     * @param {ExperienceCreateManyArgs} args - Arguments to create many Experiences.
+     * @example
+     * // Create many Experiences
+     * const experience = await prisma.experience.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExperienceCreateManyArgs>(args?: SelectSubset<T, ExperienceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Experiences and returns the data saved in the database.
+     * @param {ExperienceCreateManyAndReturnArgs} args - Arguments to create many Experiences.
+     * @example
+     * // Create many Experiences
+     * const experience = await prisma.experience.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Experiences and only return the `id`
+     * const experienceWithIdOnly = await prisma.experience.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExperienceCreateManyAndReturnArgs>(args?: SelectSubset<T, ExperienceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Experience.
+     * @param {ExperienceDeleteArgs} args - Arguments to delete one Experience.
+     * @example
+     * // Delete one Experience
+     * const Experience = await prisma.experience.delete({
+     *   where: {
+     *     // ... filter to delete one Experience
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExperienceDeleteArgs>(args: SelectSubset<T, ExperienceDeleteArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Experience.
+     * @param {ExperienceUpdateArgs} args - Arguments to update one Experience.
+     * @example
+     * // Update one Experience
+     * const experience = await prisma.experience.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExperienceUpdateArgs>(args: SelectSubset<T, ExperienceUpdateArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Experiences.
+     * @param {ExperienceDeleteManyArgs} args - Arguments to filter Experiences to delete.
+     * @example
+     * // Delete a few Experiences
+     * const { count } = await prisma.experience.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExperienceDeleteManyArgs>(args?: SelectSubset<T, ExperienceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Experiences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Experiences
+     * const experience = await prisma.experience.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExperienceUpdateManyArgs>(args: SelectSubset<T, ExperienceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Experiences and returns the data updated in the database.
+     * @param {ExperienceUpdateManyAndReturnArgs} args - Arguments to update many Experiences.
+     * @example
+     * // Update many Experiences
+     * const experience = await prisma.experience.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Experiences and only return the `id`
+     * const experienceWithIdOnly = await prisma.experience.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExperienceUpdateManyAndReturnArgs>(args: SelectSubset<T, ExperienceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Experience.
+     * @param {ExperienceUpsertArgs} args - Arguments to update or create a Experience.
+     * @example
+     * // Update or create a Experience
+     * const experience = await prisma.experience.upsert({
+     *   create: {
+     *     // ... data to create a Experience
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Experience we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExperienceUpsertArgs>(args: SelectSubset<T, ExperienceUpsertArgs<ExtArgs>>): Prisma__ExperienceClient<$Result.GetResult<Prisma.$ExperiencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Experiences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceCountArgs} args - Arguments to filter Experiences to count.
+     * @example
+     * // Count the number of Experiences
+     * const count = await prisma.experience.count({
+     *   where: {
+     *     // ... the filter for the Experiences we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExperienceCountArgs>(
+      args?: Subset<T, ExperienceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExperienceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Experience.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExperienceAggregateArgs>(args: Subset<T, ExperienceAggregateArgs>): Prisma.PrismaPromise<GetExperienceAggregateType<T>>
+
+    /**
+     * Group by Experience.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExperienceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExperienceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExperienceGroupByArgs['orderBy'] }
+        : { orderBy?: ExperienceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExperienceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExperienceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Experience model
+   */
+  readonly fields: ExperienceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Experience.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExperienceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Experience model
+   */
+  interface ExperienceFieldRefs {
+    readonly id: FieldRef<"Experience", 'Int'>
+    readonly type: FieldRef<"Experience", 'ExperienceType'>
+    readonly title: FieldRef<"Experience", 'String'>
+    readonly institution: FieldRef<"Experience", 'String'>
+    readonly startDate: FieldRef<"Experience", 'DateTime'>
+    readonly endDate: FieldRef<"Experience", 'DateTime'>
+    readonly description: FieldRef<"Experience", 'String'>
+    readonly status: FieldRef<"Experience", 'Status'>
+    readonly createdAt: FieldRef<"Experience", 'DateTime'>
+    readonly updatedAt: FieldRef<"Experience", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Experience findUnique
+   */
+  export type ExperienceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience findUniqueOrThrow
+   */
+  export type ExperienceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience findFirst
+   */
+  export type ExperienceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Experiences.
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Experiences.
+     */
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
+   * Experience findFirstOrThrow
+   */
+  export type ExperienceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Filter, which Experience to fetch.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Experiences.
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Experiences.
+     */
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
+   * Experience findMany
+   */
+  export type ExperienceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Filter, which Experiences to fetch.
+     */
+    where?: ExperienceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Experiences to fetch.
+     */
+    orderBy?: ExperienceOrderByWithRelationInput | ExperienceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Experiences.
+     */
+    cursor?: ExperienceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Experiences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Experiences.
+     */
+    skip?: number
+    distinct?: ExperienceScalarFieldEnum | ExperienceScalarFieldEnum[]
+  }
+
+  /**
+   * Experience create
+   */
+  export type ExperienceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Experience.
+     */
+    data: XOR<ExperienceCreateInput, ExperienceUncheckedCreateInput>
+  }
+
+  /**
+   * Experience createMany
+   */
+  export type ExperienceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Experiences.
+     */
+    data: ExperienceCreateManyInput | ExperienceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Experience createManyAndReturn
+   */
+  export type ExperienceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Experiences.
+     */
+    data: ExperienceCreateManyInput | ExperienceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Experience update
+   */
+  export type ExperienceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Experience.
+     */
+    data: XOR<ExperienceUpdateInput, ExperienceUncheckedUpdateInput>
+    /**
+     * Choose, which Experience to update.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience updateMany
+   */
+  export type ExperienceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Experiences.
+     */
+    data: XOR<ExperienceUpdateManyMutationInput, ExperienceUncheckedUpdateManyInput>
+    /**
+     * Filter which Experiences to update
+     */
+    where?: ExperienceWhereInput
+    /**
+     * Limit how many Experiences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Experience updateManyAndReturn
+   */
+  export type ExperienceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The data used to update Experiences.
+     */
+    data: XOR<ExperienceUpdateManyMutationInput, ExperienceUncheckedUpdateManyInput>
+    /**
+     * Filter which Experiences to update
+     */
+    where?: ExperienceWhereInput
+    /**
+     * Limit how many Experiences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Experience upsert
+   */
+  export type ExperienceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Experience to update in case it exists.
+     */
+    where: ExperienceWhereUniqueInput
+    /**
+     * In case the Experience found by the `where` argument doesn't exist, create a new Experience with this data.
+     */
+    create: XOR<ExperienceCreateInput, ExperienceUncheckedCreateInput>
+    /**
+     * In case the Experience was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExperienceUpdateInput, ExperienceUncheckedUpdateInput>
+  }
+
+  /**
+   * Experience delete
+   */
+  export type ExperienceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+    /**
+     * Filter which Experience to delete.
+     */
+    where: ExperienceWhereUniqueInput
+  }
+
+  /**
+   * Experience deleteMany
+   */
+  export type ExperienceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Experiences to delete
+     */
+    where?: ExperienceWhereInput
+    /**
+     * Limit how many Experiences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Experience without action
+   */
+  export type ExperienceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Experience
+     */
+    select?: ExperienceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Experience
+     */
+    omit?: ExperienceOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Cms
+   */
+
+  export type AggregateCms = {
+    _count: CmsCountAggregateOutputType | null
+    _avg: CmsAvgAggregateOutputType | null
+    _sum: CmsSumAggregateOutputType | null
+    _min: CmsMinAggregateOutputType | null
+    _max: CmsMaxAggregateOutputType | null
+  }
+
+  export type CmsAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CmsSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CmsMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    content: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CmsMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    content: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CmsCountAggregateOutputType = {
+    id: number
+    name: number
+    content: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CmsAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CmsSumAggregateInputType = {
+    id?: true
+  }
+
+  export type CmsMinAggregateInputType = {
+    id?: true
+    name?: true
+    content?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CmsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    content?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CmsCountAggregateInputType = {
+    id?: true
+    name?: true
+    content?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CmsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Cms to aggregate.
+     */
+    where?: CmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cms to fetch.
+     */
+    orderBy?: CmsOrderByWithRelationInput | CmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Cms
+    **/
+    _count?: true | CmsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CmsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CmsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CmsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CmsMaxAggregateInputType
+  }
+
+  export type GetCmsAggregateType<T extends CmsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCms]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCms[P]>
+      : GetScalarType<T[P], AggregateCms[P]>
+  }
+
+
+
+
+  export type CmsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CmsWhereInput
+    orderBy?: CmsOrderByWithAggregationInput | CmsOrderByWithAggregationInput[]
+    by: CmsScalarFieldEnum[] | CmsScalarFieldEnum
+    having?: CmsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CmsCountAggregateInputType | true
+    _avg?: CmsAvgAggregateInputType
+    _sum?: CmsSumAggregateInputType
+    _min?: CmsMinAggregateInputType
+    _max?: CmsMaxAggregateInputType
+  }
+
+  export type CmsGroupByOutputType = {
+    id: number
+    name: string
+    content: string | null
+    status: $Enums.Status
+    createdAt: Date
+    updatedAt: Date
+    _count: CmsCountAggregateOutputType | null
+    _avg: CmsAvgAggregateOutputType | null
+    _sum: CmsSumAggregateOutputType | null
+    _min: CmsMinAggregateOutputType | null
+    _max: CmsMaxAggregateOutputType | null
+  }
+
+  type GetCmsGroupByPayload<T extends CmsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CmsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CmsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CmsGroupByOutputType[P]>
+            : GetScalarType<T[P], CmsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CmsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    content?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["cms"]>
+
+  export type CmsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    content?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["cms"]>
+
+  export type CmsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    content?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["cms"]>
+
+  export type CmsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    content?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CmsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "content" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["cms"]>
+
+  export type $CmsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Cms"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      content: string | null
+      status: $Enums.Status
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["cms"]>
+    composites: {}
+  }
+
+  type CmsGetPayload<S extends boolean | null | undefined | CmsDefaultArgs> = $Result.GetResult<Prisma.$CmsPayload, S>
+
+  type CmsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CmsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CmsCountAggregateInputType | true
+    }
+
+  export interface CmsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Cms'], meta: { name: 'Cms' } }
+    /**
+     * Find zero or one Cms that matches the filter.
+     * @param {CmsFindUniqueArgs} args - Arguments to find a Cms
+     * @example
+     * // Get one Cms
+     * const cms = await prisma.cms.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CmsFindUniqueArgs>(args: SelectSubset<T, CmsFindUniqueArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Cms that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CmsFindUniqueOrThrowArgs} args - Arguments to find a Cms
+     * @example
+     * // Get one Cms
+     * const cms = await prisma.cms.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CmsFindUniqueOrThrowArgs>(args: SelectSubset<T, CmsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsFindFirstArgs} args - Arguments to find a Cms
+     * @example
+     * // Get one Cms
+     * const cms = await prisma.cms.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CmsFindFirstArgs>(args?: SelectSubset<T, CmsFindFirstArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Cms that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsFindFirstOrThrowArgs} args - Arguments to find a Cms
+     * @example
+     * // Get one Cms
+     * const cms = await prisma.cms.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CmsFindFirstOrThrowArgs>(args?: SelectSubset<T, CmsFindFirstOrThrowArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cms
+     * const cms = await prisma.cms.findMany()
+     * 
+     * // Get first 10 Cms
+     * const cms = await prisma.cms.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const cmsWithIdOnly = await prisma.cms.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CmsFindManyArgs>(args?: SelectSubset<T, CmsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Cms.
+     * @param {CmsCreateArgs} args - Arguments to create a Cms.
+     * @example
+     * // Create one Cms
+     * const Cms = await prisma.cms.create({
+     *   data: {
+     *     // ... data to create a Cms
+     *   }
+     * })
+     * 
+     */
+    create<T extends CmsCreateArgs>(args: SelectSubset<T, CmsCreateArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cms.
+     * @param {CmsCreateManyArgs} args - Arguments to create many Cms.
+     * @example
+     * // Create many Cms
+     * const cms = await prisma.cms.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CmsCreateManyArgs>(args?: SelectSubset<T, CmsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Cms and returns the data saved in the database.
+     * @param {CmsCreateManyAndReturnArgs} args - Arguments to create many Cms.
+     * @example
+     * // Create many Cms
+     * const cms = await prisma.cms.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Cms and only return the `id`
+     * const cmsWithIdOnly = await prisma.cms.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CmsCreateManyAndReturnArgs>(args?: SelectSubset<T, CmsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Cms.
+     * @param {CmsDeleteArgs} args - Arguments to delete one Cms.
+     * @example
+     * // Delete one Cms
+     * const Cms = await prisma.cms.delete({
+     *   where: {
+     *     // ... filter to delete one Cms
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CmsDeleteArgs>(args: SelectSubset<T, CmsDeleteArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Cms.
+     * @param {CmsUpdateArgs} args - Arguments to update one Cms.
+     * @example
+     * // Update one Cms
+     * const cms = await prisma.cms.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CmsUpdateArgs>(args: SelectSubset<T, CmsUpdateArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cms.
+     * @param {CmsDeleteManyArgs} args - Arguments to filter Cms to delete.
+     * @example
+     * // Delete a few Cms
+     * const { count } = await prisma.cms.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CmsDeleteManyArgs>(args?: SelectSubset<T, CmsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cms
+     * const cms = await prisma.cms.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CmsUpdateManyArgs>(args: SelectSubset<T, CmsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cms and returns the data updated in the database.
+     * @param {CmsUpdateManyAndReturnArgs} args - Arguments to update many Cms.
+     * @example
+     * // Update many Cms
+     * const cms = await prisma.cms.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Cms and only return the `id`
+     * const cmsWithIdOnly = await prisma.cms.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CmsUpdateManyAndReturnArgs>(args: SelectSubset<T, CmsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Cms.
+     * @param {CmsUpsertArgs} args - Arguments to update or create a Cms.
+     * @example
+     * // Update or create a Cms
+     * const cms = await prisma.cms.upsert({
+     *   create: {
+     *     // ... data to create a Cms
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cms we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CmsUpsertArgs>(args: SelectSubset<T, CmsUpsertArgs<ExtArgs>>): Prisma__CmsClient<$Result.GetResult<Prisma.$CmsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsCountArgs} args - Arguments to filter Cms to count.
+     * @example
+     * // Count the number of Cms
+     * const count = await prisma.cms.count({
+     *   where: {
+     *     // ... the filter for the Cms we want to count
+     *   }
+     * })
+    **/
+    count<T extends CmsCountArgs>(
+      args?: Subset<T, CmsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CmsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CmsAggregateArgs>(args: Subset<T, CmsAggregateArgs>): Prisma.PrismaPromise<GetCmsAggregateType<T>>
+
+    /**
+     * Group by Cms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CmsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CmsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CmsGroupByArgs['orderBy'] }
+        : { orderBy?: CmsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CmsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCmsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Cms model
+   */
+  readonly fields: CmsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Cms.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CmsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Cms model
+   */
+  interface CmsFieldRefs {
+    readonly id: FieldRef<"Cms", 'Int'>
+    readonly name: FieldRef<"Cms", 'String'>
+    readonly content: FieldRef<"Cms", 'String'>
+    readonly status: FieldRef<"Cms", 'Status'>
+    readonly createdAt: FieldRef<"Cms", 'DateTime'>
+    readonly updatedAt: FieldRef<"Cms", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Cms findUnique
+   */
+  export type CmsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Cms to fetch.
+     */
+    where: CmsWhereUniqueInput
+  }
+
+  /**
+   * Cms findUniqueOrThrow
+   */
+  export type CmsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Cms to fetch.
+     */
+    where: CmsWhereUniqueInput
+  }
+
+  /**
+   * Cms findFirst
+   */
+  export type CmsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Cms to fetch.
+     */
+    where?: CmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cms to fetch.
+     */
+    orderBy?: CmsOrderByWithRelationInput | CmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Cms.
+     */
+    cursor?: CmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Cms.
+     */
+    distinct?: CmsScalarFieldEnum | CmsScalarFieldEnum[]
+  }
+
+  /**
+   * Cms findFirstOrThrow
+   */
+  export type CmsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Cms to fetch.
+     */
+    where?: CmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cms to fetch.
+     */
+    orderBy?: CmsOrderByWithRelationInput | CmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Cms.
+     */
+    cursor?: CmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Cms.
+     */
+    distinct?: CmsScalarFieldEnum | CmsScalarFieldEnum[]
+  }
+
+  /**
+   * Cms findMany
+   */
+  export type CmsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * Filter, which Cms to fetch.
+     */
+    where?: CmsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cms to fetch.
+     */
+    orderBy?: CmsOrderByWithRelationInput | CmsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Cms.
+     */
+    cursor?: CmsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cms.
+     */
+    skip?: number
+    distinct?: CmsScalarFieldEnum | CmsScalarFieldEnum[]
+  }
+
+  /**
+   * Cms create
+   */
+  export type CmsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Cms.
+     */
+    data: XOR<CmsCreateInput, CmsUncheckedCreateInput>
+  }
+
+  /**
+   * Cms createMany
+   */
+  export type CmsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Cms.
+     */
+    data: CmsCreateManyInput | CmsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Cms createManyAndReturn
+   */
+  export type CmsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Cms.
+     */
+    data: CmsCreateManyInput | CmsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Cms update
+   */
+  export type CmsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Cms.
+     */
+    data: XOR<CmsUpdateInput, CmsUncheckedUpdateInput>
+    /**
+     * Choose, which Cms to update.
+     */
+    where: CmsWhereUniqueInput
+  }
+
+  /**
+   * Cms updateMany
+   */
+  export type CmsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Cms.
+     */
+    data: XOR<CmsUpdateManyMutationInput, CmsUncheckedUpdateManyInput>
+    /**
+     * Filter which Cms to update
+     */
+    where?: CmsWhereInput
+    /**
+     * Limit how many Cms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Cms updateManyAndReturn
+   */
+  export type CmsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * The data used to update Cms.
+     */
+    data: XOR<CmsUpdateManyMutationInput, CmsUncheckedUpdateManyInput>
+    /**
+     * Filter which Cms to update
+     */
+    where?: CmsWhereInput
+    /**
+     * Limit how many Cms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Cms upsert
+   */
+  export type CmsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Cms to update in case it exists.
+     */
+    where: CmsWhereUniqueInput
+    /**
+     * In case the Cms found by the `where` argument doesn't exist, create a new Cms with this data.
+     */
+    create: XOR<CmsCreateInput, CmsUncheckedCreateInput>
+    /**
+     * In case the Cms was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CmsUpdateInput, CmsUncheckedUpdateInput>
+  }
+
+  /**
+   * Cms delete
+   */
+  export type CmsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+    /**
+     * Filter which Cms to delete.
+     */
+    where: CmsWhereUniqueInput
+  }
+
+  /**
+   * Cms deleteMany
+   */
+  export type CmsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Cms to delete
+     */
+    where?: CmsWhereInput
+    /**
+     * Limit how many Cms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Cms without action
+   */
+  export type CmsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Cms
+     */
+    select?: CmsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Cms
+     */
+    omit?: CmsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8154,6 +10484,34 @@ export namespace Prisma {
   };
 
   export type CommunityScalarFieldEnum = (typeof CommunityScalarFieldEnum)[keyof typeof CommunityScalarFieldEnum]
+
+
+  export const ExperienceScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    title: 'title',
+    institution: 'institution',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    description: 'description',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ExperienceScalarFieldEnum = (typeof ExperienceScalarFieldEnum)[keyof typeof ExperienceScalarFieldEnum]
+
+
+  export const CmsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    content: 'content',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CmsScalarFieldEnum = (typeof CmsScalarFieldEnum)[keyof typeof CmsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8287,6 +10645,20 @@ export namespace Prisma {
    * Reference to a field of type 'CommunityStatus[]'
    */
   export type ListEnumCommunityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommunityStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ExperienceType'
+   */
+  export type EnumExperienceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ExperienceType[]'
+   */
+  export type ListEnumExperienceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceType[]'>
     
 
 
@@ -8703,6 +11075,144 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Community"> | Date | string
   }
 
+  export type ExperienceWhereInput = {
+    AND?: ExperienceWhereInput | ExperienceWhereInput[]
+    OR?: ExperienceWhereInput[]
+    NOT?: ExperienceWhereInput | ExperienceWhereInput[]
+    id?: IntFilter<"Experience"> | number
+    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
+    title?: StringFilter<"Experience"> | string
+    institution?: StringFilter<"Experience"> | string
+    startDate?: DateTimeFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    description?: StringNullableFilter<"Experience"> | string | null
+    status?: EnumStatusFilter<"Experience"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeFilter<"Experience"> | Date | string
+  }
+
+  export type ExperienceOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    institution?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExperienceWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ExperienceWhereInput | ExperienceWhereInput[]
+    OR?: ExperienceWhereInput[]
+    NOT?: ExperienceWhereInput | ExperienceWhereInput[]
+    type?: EnumExperienceTypeFilter<"Experience"> | $Enums.ExperienceType
+    title?: StringFilter<"Experience"> | string
+    institution?: StringFilter<"Experience"> | string
+    startDate?: DateTimeFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableFilter<"Experience"> | Date | string | null
+    description?: StringNullableFilter<"Experience"> | string | null
+    status?: EnumStatusFilter<"Experience"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeFilter<"Experience"> | Date | string
+  }, "id">
+
+  export type ExperienceOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    institution?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ExperienceCountOrderByAggregateInput
+    _avg?: ExperienceAvgOrderByAggregateInput
+    _max?: ExperienceMaxOrderByAggregateInput
+    _min?: ExperienceMinOrderByAggregateInput
+    _sum?: ExperienceSumOrderByAggregateInput
+  }
+
+  export type ExperienceScalarWhereWithAggregatesInput = {
+    AND?: ExperienceScalarWhereWithAggregatesInput | ExperienceScalarWhereWithAggregatesInput[]
+    OR?: ExperienceScalarWhereWithAggregatesInput[]
+    NOT?: ExperienceScalarWhereWithAggregatesInput | ExperienceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Experience"> | number
+    type?: EnumExperienceTypeWithAggregatesFilter<"Experience"> | $Enums.ExperienceType
+    title?: StringWithAggregatesFilter<"Experience"> | string
+    institution?: StringWithAggregatesFilter<"Experience"> | string
+    startDate?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
+    endDate?: DateTimeNullableWithAggregatesFilter<"Experience"> | Date | string | null
+    description?: StringNullableWithAggregatesFilter<"Experience"> | string | null
+    status?: EnumStatusWithAggregatesFilter<"Experience"> | $Enums.Status
+    createdAt?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Experience"> | Date | string
+  }
+
+  export type CmsWhereInput = {
+    AND?: CmsWhereInput | CmsWhereInput[]
+    OR?: CmsWhereInput[]
+    NOT?: CmsWhereInput | CmsWhereInput[]
+    id?: IntFilter<"Cms"> | number
+    name?: StringFilter<"Cms"> | string
+    content?: StringNullableFilter<"Cms"> | string | null
+    status?: EnumStatusFilter<"Cms"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Cms"> | Date | string
+    updatedAt?: DateTimeFilter<"Cms"> | Date | string
+  }
+
+  export type CmsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    content?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CmsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: CmsWhereInput | CmsWhereInput[]
+    OR?: CmsWhereInput[]
+    NOT?: CmsWhereInput | CmsWhereInput[]
+    name?: StringFilter<"Cms"> | string
+    content?: StringNullableFilter<"Cms"> | string | null
+    status?: EnumStatusFilter<"Cms"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Cms"> | Date | string
+    updatedAt?: DateTimeFilter<"Cms"> | Date | string
+  }, "id">
+
+  export type CmsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    content?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CmsCountOrderByAggregateInput
+    _avg?: CmsAvgOrderByAggregateInput
+    _max?: CmsMaxOrderByAggregateInput
+    _min?: CmsMinOrderByAggregateInput
+    _sum?: CmsSumOrderByAggregateInput
+  }
+
+  export type CmsScalarWhereWithAggregatesInput = {
+    AND?: CmsScalarWhereWithAggregatesInput | CmsScalarWhereWithAggregatesInput[]
+    OR?: CmsScalarWhereWithAggregatesInput[]
+    NOT?: CmsScalarWhereWithAggregatesInput | CmsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Cms"> | number
+    name?: StringWithAggregatesFilter<"Cms"> | string
+    content?: StringNullableWithAggregatesFilter<"Cms"> | string | null
+    status?: EnumStatusWithAggregatesFilter<"Cms"> | $Enums.Status
+    createdAt?: DateTimeWithAggregatesFilter<"Cms"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Cms"> | Date | string
+  }
+
   export type UserCreateInput = {
     name: string
     email: string
@@ -9107,6 +11617,154 @@ export namespace Prisma {
     userId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string
     status?: EnumCommunityStatusFieldUpdateOperationsInput | $Enums.CommunityStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceCreateInput = {
+    type: $Enums.ExperienceType
+    title: string
+    institution: string
+    startDate: Date | string
+    endDate?: Date | string | null
+    description?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceUncheckedCreateInput = {
+    id?: number
+    type: $Enums.ExperienceType
+    title: string
+    institution: string
+    startDate: Date | string
+    endDate?: Date | string | null
+    description?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceUpdateInput = {
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    title?: StringFieldUpdateOperationsInput | string
+    institution?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    title?: StringFieldUpdateOperationsInput | string
+    institution?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceCreateManyInput = {
+    id?: number
+    type: $Enums.ExperienceType
+    title: string
+    institution: string
+    startDate: Date | string
+    endDate?: Date | string | null
+    description?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExperienceUpdateManyMutationInput = {
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    title?: StringFieldUpdateOperationsInput | string
+    institution?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExperienceUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumExperienceTypeFieldUpdateOperationsInput | $Enums.ExperienceType
+    title?: StringFieldUpdateOperationsInput | string
+    institution?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CmsCreateInput = {
+    name: string
+    content?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CmsUncheckedCreateInput = {
+    id?: number
+    name: string
+    content?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CmsUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CmsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CmsCreateManyInput = {
+    id?: number
+    name: string
+    content?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CmsUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CmsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9573,6 +12231,163 @@ export namespace Prisma {
     _max?: NestedEnumCommunityStatusFilter<$PrismaModel>
   }
 
+  export type EnumExperienceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeFilter<$PrismaModel> | $Enums.ExperienceType
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type ExperienceCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    institution?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExperienceAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ExperienceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    institution?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExperienceMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    institution?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExperienceSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type EnumExperienceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExperienceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumExperienceTypeFilter<$PrismaModel>
+    _max?: NestedEnumExperienceTypeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type CmsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CmsAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type CmsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CmsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    content?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CmsSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type CommunityCreateNestedManyWithoutUserInput = {
     create?: XOR<CommunityCreateWithoutUserInput, CommunityUncheckedCreateWithoutUserInput> | CommunityCreateWithoutUserInput[] | CommunityUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CommunityCreateOrConnectWithoutUserInput | CommunityCreateOrConnectWithoutUserInput[]
@@ -9729,6 +12544,18 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumExperienceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ExperienceType
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9942,6 +12769,79 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCommunityStatusFilter<$PrismaModel>
     _max?: NestedEnumCommunityStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumExperienceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeFilter<$PrismaModel> | $Enums.ExperienceType
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExperienceType | EnumExperienceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExperienceType[] | ListEnumExperienceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExperienceTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExperienceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumExperienceTypeFilter<$PrismaModel>
+    _max?: NestedEnumExperienceTypeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type CommunityCreateWithoutUserInput = {
