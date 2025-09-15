@@ -148,9 +148,9 @@ const PageClient = () => {
     // Polling tiap 2 detik sekali
     const inv = setInterval(() => {
       fetchComun(me, false); // tanpa loading supaya ga flicker
-    }, 2000);
+    }, 5000);
 
-    return clearInterval(inv);
+    return () => clearInterval(inv);
   }, [me])
 
   return (
