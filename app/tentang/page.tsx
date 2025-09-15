@@ -45,7 +45,7 @@ const Page = () => {
 
   return (
     <LayoutMain>
-      <SectionMain className='container pt-[100px] px-5 py-5'>
+      <SectionMain className='container pt-[100px] md:pt-5 px-5 py-5'>
         <div className='border-b border-gray-400 pb-5'>
           <h1 className='text-3xl flex font-bold'>Tentang Saya</h1>
           <p className='text-gray-400'>

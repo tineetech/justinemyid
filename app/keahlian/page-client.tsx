@@ -87,7 +87,7 @@ const PageClient = () => {
 
   return (
     <LayoutMain>
-      <SectionMain className='p-5 pt-[100px]'>
+      <SectionMain className='p-5 pt-[100px] md:pt-5'>
         {/* Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-white">Keahlian</h2>

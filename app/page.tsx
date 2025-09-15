@@ -5,6 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SectionMain from "@/components/SectionMain";
 import LayoutMain from "@/components/LayoutMain";
+import StarBorder from "@/components/StarBorder";
 
 interface Cms {
   no: number;
@@ -45,8 +46,10 @@ const Home = () => {
   useEffect(() => {
     const preloader = document.querySelector("[data-preloader]");
     if (preloader) {
-      preloader.classList.add("loaded");
       document.body.classList.add("loaded");
+      setTimeout(() => {
+        preloader.classList.add("loaded");
+      }, 100)
     }
   }, []);
 
@@ -123,19 +126,40 @@ const Home = () => {
                 <p className="mb-4">Sebagai Freelancer, saya membuka kesempatan untuk proyek freelance website, aplikasi maupun design dan lainnya, jangan ragu untuk mengirim email kepada saya untuk melihat bagaimana kita bisa berkolaborasi.</p>
                 
                 <div className="w-full flex-col md:flex-row text-[15px] flex gap-3 justify-between">
-                  <div onClick={() => window.open('https://wa.me/6287774487198')} className="w-full flex justify-center items-center gap-3 py-4 hover:bg-indigo-600 transition-all ease-in-out cursor-pointer bg-indigo-700  rounded-[10px]">
-                    <Phone size={18} />
-                    <span>Hubungi Saya</span>
-                  </div>
-                  <div onClick={() => window.open(loading ? '' : cmsMap["cv_home"]?.content || '/files/JUSTINE_CV_2025.pdf')} className="w-full flex justify-center items-center gap-3 py-4 hover:bg-indigo-600 transition-all ease-in-out cursor-pointer bg-indigo-700  rounded-[10px]">
-                    <FileText size={18} />
-                    <span>Lihat CV</span>
-                  </div>
+                  <StarBorder
+                    as="button"
+                    className="custom-class  w-full flex justify-center items-center py-4 cursor-pointer"
+                    color=""
+                    speed="5s"
+                  >
+                    <div onClick={() => window.open('https://wa.me/6287774487198')} className=" w-full flex justify-center items-center gap-3">
+                      <Phone size={18} />
+                      <span>Hubungi Saya</span>
+                    </div>
+                  </StarBorder>
+                  <StarBorder
+                    as="button"
+                    className="custom-class  w-full flex justify-center items-center py-4 cursor-pointer"
+                    color=""
+                    speed="5s"
+                    >
+                    <div onClick={() => window.open(loading ? '' : cmsMap["cv_home"]?.content || '/files/JUSTINE_CV_2025.pdf')} className="w-full flex justify-center items-center gap-3 ">
+                      <FileText size={18} />
+                      <span>Lihat CV</span>
+                    </div>
+                  </StarBorder>
                 </div>
-                  <div onClick={() => window.open('https://lynk.id/premiumdeals')} className="w-full mt-3 flex justify-center items-center gap-3 py-4 hover:bg-indigo-600 transition-all ease-in-out cursor-pointer bg-indigo-700  rounded-[10px]">
-                    <ShoppingBag size={18} />
-                    <span>@premiumdeals</span>
-                  </div>
+                  <StarBorder
+                    as="button"
+                    className="custom-class  w-full mt-3 flex justify-center items-center py-4 cursor-pointer"
+                    color=""
+                    speed="5s"
+                    >
+                    <div onClick={() => window.open('https://lynk.id/premiumdeals')} className="w-full  flex justify-center items-center gap-3 ">
+                      <ShoppingBag size={18} />
+                      <span>@premiumdeals</span>
+                    </div>
+                  </StarBorder>
               </div>
             </div>
           </div>

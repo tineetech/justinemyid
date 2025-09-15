@@ -70,6 +70,7 @@ const PageClient = () => {
   };
 
   const fetchComun = async (meUser: Me | null) => {
+    setLoading(true)
     try {
       const res = await fetch("/api/community");
       const json = await res.json();
@@ -79,7 +80,7 @@ const PageClient = () => {
         (a: any, b: any) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
 
-      const mapped = sorted.map((item: any, index: number) => ({
+      const mapped = sorted.filter((item: any) => item.status == 'active').map((item: any, index: number) => ({
         id: item.id ?? index,
         user: item.user === null ? "Anonymus" : item.user.name,
         role: item.user === null ? null : item.user.role,
@@ -98,7 +99,6 @@ const PageClient = () => {
   };
 
   const fetchMe = async () => {
-    setLoading(true)
     try {
       const res = await fetch("/api/me", {
         headers: {
@@ -112,7 +112,6 @@ const PageClient = () => {
       setMe(json);
       fetchComun(json);
       console.log(json)
-      setLoading(false)
     } catch {
       console.warn("gagal fetch me, set semua self=false");
       setMe(null);
@@ -122,12 +121,13 @@ const PageClient = () => {
   };
 
   useEffect(() => {
+    setLoading(true)
     fetchMe();
   }, []);
 
   return (
     <LayoutMain>
-      <SectionMain className="p-5 flex flex-col pt-[100px]">
+      <SectionMain className="p-5 flex flex-col pt-[100px] md:pt-5">
         {/* Title */}
         <div className="mb-4">
           <h2 className="text-3xl font-bold text-white">Komunitas</h2>
