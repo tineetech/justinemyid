@@ -2,7 +2,7 @@
 
 import LayoutMain from "@/components/LayoutMain"
 import SectionMain from "@/components/SectionMain"
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
@@ -146,7 +146,7 @@ const PageClient = () => {
             <Card
               key={i}
               onClick={() => window.open(project.link)}
-              className="overflow-hidden bg-gray-800 border-gray-700 hover:bg-gray-700 transition rounded-2xl"
+              className="overflow-hidden bg-gray-800 border-gray-700 hover:bg-gray-700 hi transition rounded-2xl"
             >
               <div className="relative">
                 <Image
@@ -163,14 +163,14 @@ const PageClient = () => {
                 )}
               </div>
               <CardHeader>
-                <p className="text-sm text-gray-400">{project.type}</p>
-                <CardTitle className="text-lg text-white">
+                <CardTitle className="text-lg -mt-2 text-white">
                   {project.title}
+                  <p className="text-sm mt-1 mb-4 text-gray-400 line-clamp-3 ">{project.desc}</p>
+                  <div className="text-sm w-full text-white flex">
+                    <p className=" bg-blue-600 rounded-sm px-3 py-1">{project.type}</p>
+                  </div>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-300">{project.desc}</p>
-              </CardContent>
             </Card>
           )) : (
             <div className="bg-gray-700 w-full h-[400px] absolute rounded-xl flex justify-center items-center text-center">

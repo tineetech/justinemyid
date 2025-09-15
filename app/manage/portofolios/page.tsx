@@ -19,7 +19,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
 
-interface Portfolio {
+interface Portofolio {
   id: number
   title: string
   image: string
@@ -39,11 +39,11 @@ interface PortoJenis {
 }
 
 export default function Page() {
-  const [data, setData] = useState<Portfolio[]>([])
+  const [data, setData] = useState<Portofolio[]>([])
   const [portoJenisList, setPortoJenisList] = useState<PortoJenis[]>([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
-  const [editing, setEditing] = useState<Portfolio | null>(null)
+  const [editing, setEditing] = useState<Portofolio | null>(null)
   const [form, setForm] = useState({
     title: "",
     image: "",
@@ -56,6 +56,18 @@ export default function Page() {
   })
   const [file, setFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState(false)
+  
+  const validateImage = async (url: string): Promise<string> => {
+    try {
+      const res = await fetch(url, { method: "HEAD" })
+      if (res.ok && res.headers.get("content-type")?.startsWith("image/")) {
+        return url
+      }
+      return "/images/default-project.png"
+    } catch {
+      return "/images/default-project.png"
+    }
+  }
 
   async function fetchData() {
     setLoading(true)
@@ -63,9 +75,13 @@ export default function Page() {
       headers: { authorization: "Bearer " + localStorage.getItem("token") },
     })
     const json = await res.json()
-    const mapped = json.map((item: Portfolio, index: number) => ({
-      ...item,
-      no: index + 1,
+    const mapped = await Promise.all(json.map(async (item: Portofolio, index: number) => {
+      const validImage = await validateImage(item.image)
+      return {
+        ...item,
+        no: index++,
+        image: validImage,
+      }
     }))
     setData(mapped)
     setLoading(false)
@@ -145,7 +161,7 @@ export default function Page() {
     }
   }
 
-  async function handleDelete(row: Portfolio) {
+  async function handleDelete(row: Portofolio) {
     await fetch("/api/portofolios", {
       method: "DELETE",
       headers: {
@@ -167,31 +183,31 @@ export default function Page() {
     {
       key: "image",
       header: "Image",
-      render: (row: Portfolio) => (
-        <Image width={40} height={40} src={row.image} alt={row.title} className="h-12 w-12 object-cover rounded" />
+      render: (row: Portofolio) => (
+        <Image width={40} height={40} src={row.image ?? ''} alt={row.title} className="h-12 w-12 object-cover rounded" />
       ),
     },
     {
       key: "portoJenisId",
       header: "Jenis",
-      render: (row: Portfolio) => {
+      render: (row: Portofolio) => {
         const jenis = portoJenisList.find((j) => j.id === row.portoJenisId)
         return <span>{jenis ? jenis.name : "-"}</span>
       },
     },
-    { key: "description", header: "Deskripsi" },
-    { key: "url", header: "URL", render: (row: Portfolio) => <a className="text-blue-600" target="_blank" href={row.url}>Klik disini.</a>, },
+    { key: "description", header: "Deskripsi", render: (row: Portofolio) => <div>{row.description.slice(0, 30) + '..'}</div> },
+    { key: "url", header: "URL", render: (row: Portofolio) => <a className="text-blue-600" target="_blank" href={row.url}>Klik disini.</a>, },
     {
       key: "isPrimary",
       header: "IsPrimary",
-      render: (row: Portfolio) => <span>{row.isPrimary ? "Ya" : "Tidak"}</span>,
+      render: (row: Portofolio) => <span>{row.isPrimary ? "Ya" : "Tidak"}</span>,
     },
     { key: "category", header: "Kategori" },
     { key: "status", header: "Status" },
     {
       key: "createdAt",
       header: "Dibuat",
-      render: (row: Portfolio) => <span>{row.createdAt.slice(0, 10)}</span>,
+      render: (row: Portofolio) => <span>{row.createdAt.slice(0, 10)}</span>,
     },
   ]
 
@@ -210,7 +226,7 @@ export default function Page() {
             data={data}
             rowKey="id"
             loading={loading}
-            onEdit={(row: Portfolio) => {
+            onEdit={(row: Portofolio) => {
               setEditing(row)
               setForm({
                 title: row.title,

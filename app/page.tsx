@@ -63,11 +63,17 @@ const Home = () => {
         </div>
           <div className=" w-full h-[200px]" style={{background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%), url('images/bgheader.jpg')"}}>
             <div className="box-image absolute top-[125px] mx-5 bg-gray-800 p-2 rounded-2xl">
-              <img src={
-                loading
-                  ? "images/justine.jpg"
-                  : cmsMap["image_home"]?.content || "images/justine.jpg"
-              } alt="" className="w-[120px] h-[120px] object-cover rounded-[20px]" />
+              {
+                loading ? (
+                  <div className="overflow-hidden bg-gray-200 bg-opacity-30 animate-pulse border-gray-700 hover:bg-gray-700 transition rounded-2xl w-[120px] h-[120px]"></div>
+                ) : (
+                  <img src={
+                    loading
+                      ? "images/justine.jpg"
+                      : cmsMap["image_home"]?.content || "images/justine.jpg"
+                  } alt="" className="w-[120px] h-[120px] object-cover rounded-[20px]" />
+                )
+              }
             </div>
           </div>
 

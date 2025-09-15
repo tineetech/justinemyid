@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import LogoLoop from '@/components/LogoLoop';
 import Image from 'next/image';
+import { PenTool } from 'lucide-react';
 
 interface Skill {
   id: number
@@ -26,12 +27,32 @@ const PageClient = () => {
   const [loadingSkils, setLoadingSkils] = useState(false)
   const [loadingSertif, setLoadingSertif] = useState(false)
 
+  const validateImage = async (url: string): Promise<string> => {
+    try {
+      const res = await fetch(url, { method: "HEAD" })
+      if (res.ok && res.headers.get("content-type")?.startsWith("image/")) {
+        return url
+      }
+      return "null"
+    } catch {
+      return "null"
+    }
+  }
+
   const fetchSkils = async () => {
     setLoadingSkils(true)
     try {
       const res = await fetch('/api/skils')
       const json = await res.json()
-      setSkills(json)
+      const mapped = await Promise.all(json.map(async (item: Skill, index: number) => {
+        const validImage = await validateImage(item.image)
+        return {
+          ...item,
+          no: index++,
+          image: validImage,
+        }
+      }))
+      setSkills(mapped)
       setLoadingSkils(false)
     } catch (err) {
       setLoadingSkils(false)
@@ -44,7 +65,15 @@ const PageClient = () => {
     try {
       const res = await fetch('/api/sertifikats')
       const json = await res.json()
-      setSertifikasi(json)
+      const mapped = await Promise.all(json.map(async (item: Skill, index: number) => {
+        const validImage = await validateImage(item.image)
+        return {
+          ...item,
+          no: index++,
+          image: validImage,
+        }
+      }))
+      setSertifikasi(mapped)
       setLoadingSertif(false)
     } catch (err) {
       setLoadingSertif(false)
@@ -62,12 +91,11 @@ const PageClient = () => {
   const bagan2 = skills.filter((s) => s.bagan === 2)
   const bagan3 = skills.filter((s) => s.bagan === 3)
   const renderMarquee = (data: Skill[]) => {
-    console.log(data ? data[0] : '')
     return (
     <div className='mt-5'>
       <LogoLoop
         logos={data.map((skill) => ({
-          node: <img src={skill.image} alt={skill.name} className="h-6 w-6" />,
+          node: skill.image === 'null' ? <PenTool /> : <img src={skill.image} alt={skill.name} className="h-6 w-6" />,
           title: skill.name,
           href: "#", // kalau mau link
         }))}
@@ -156,7 +184,7 @@ const PageClient = () => {
                       <Image
                         width={100}
                         height={100}
-                        src={item.image}
+                        src={item.image === 'null' ? '/images/default-project.png' : item.image}
                         alt={item.name}
                         className="w-full rounded-xl shadow-lg object-cover"
                       />
