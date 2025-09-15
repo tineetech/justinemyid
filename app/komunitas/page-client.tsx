@@ -3,7 +3,7 @@
 import LayoutMain from "@/components/LayoutMain";
 import SectionMain from "@/components/SectionMain";
 import React, { useEffect, useRef, useState } from "react";
-import { Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import clsx from "clsx";
 
 interface ChatMessage {
@@ -28,6 +28,7 @@ const PageClient = () => {
   const [chats, setChats] = useState<ChatMessage[]>([]);
   const [me, setMe] = useState<Me | null>(null);
   const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,7 +39,8 @@ const PageClient = () => {
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim()) return;
+    if (!message.trim() || sending) return;
+    setSending(true)
 
     const newMessage: ChatMessage = {
       id: chats.length + 1,
@@ -61,12 +63,14 @@ const PageClient = () => {
           message,
         }),
       });
+      setChats((prev) => [...prev, newMessage]);
+      setMessage("");
     } catch {
       console.error("error while create message in community");
+    } finally {
+      setSending(false); // ⬅️ matikan loading kirim
     }
 
-    setChats((prev) => [...prev, newMessage]);
-    setMessage("");
   };
 
   const fetchComun = async (meUser: Me | null, withLoading = false) => {
@@ -81,17 +85,32 @@ const PageClient = () => {
       );
 
       const mapped = sorted
-        .filter((item: any) => item.status === "active")
-        .map((item: any, index: number) => ({
+      .filter((item: any) => item.status === "active")
+      .map((item: any, index: number) => {
+        const date = new Date(item.createdAt);
+
+        // Konversi ke Waktu Indonesia Barat (WIB)
+        const timeWIB = date.toLocaleString("id-ID", {
+          timeZone: "Asia/Jakarta",
+          hour: "2-digit",
+          minute: "2-digit",
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
+
+        return {
           id: item.id ?? index,
           user: item.user === null ? "Anonymus" : item.user.name,
           role: item.user === null ? null : item.user.role,
           avatar:
             item.user === null ? "/images/anonymus-pp.png" : item.user.avatar,
           message: item.message,
-          time: item.createdAt.slice(0, 16).replace("T", " "),
+          time: timeWIB, // sudah WIB
           self: meUser ? meUser.id === item.userId : false,
-        }));
+        };
+      });
+
 
       setChats(mapped);
     } catch {
@@ -123,13 +142,16 @@ const PageClient = () => {
 
   useEffect(() => {
     fetchMe();
-
+  }, []);
+  
+  useEffect(() => {
     // Polling tiap 2 detik sekali
-    setInterval(() => {
+    const inv = setInterval(() => {
       fetchComun(me, false); // tanpa loading supaya ga flicker
     }, 2000);
 
-  }, []);
+    return clearInterval(inv);
+  }, [me])
 
   return (
     <LayoutMain>
@@ -208,7 +230,7 @@ const PageClient = () => {
                       chat.self ? "text-right" : "text-left"
                     )}
                   >
-                    {chat.time}
+                    {chat.time} WIB
                   </div>
                 </div>
               </div>
@@ -234,6 +256,7 @@ const PageClient = () => {
             placeholder="Tulis pesan..."
             className="flex-1 px-4 py-2 rounded-2xl min-h-[44px] max-h-[120px] bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
             rows={1}
+            disabled={sending}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault(); // cegah newline
@@ -243,9 +266,14 @@ const PageClient = () => {
           />
           <button
             type="submit"
+            disabled={sending}
             className="p-2 bg-blue-600 hover:bg-blue-700 rounded-full text-white"
           >
-            <Send size={20} />
+             {sending ? (
+              <Loader2 className="animate-spin" size={20} />
+            ) : (
+              <Send size={20} />
+            )}
           </button>
         </form>
         {!loading && !me && (
