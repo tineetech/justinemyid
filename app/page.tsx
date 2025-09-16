@@ -1,6 +1,7 @@
 "use client";
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { ChevronsRight, FileText, Github, Instagram, Mail, Phone, Send, ShoppingBag } from "lucide-react";
+import { ChevronsRight, FileText, Github, Heart, Instagram, Loader2, Mail, Phone, Send, ShoppingBag } from "lucide-react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import SectionMain from "@/components/SectionMain";
@@ -15,10 +16,29 @@ interface Cms {
   content: string;
   status: string;
 }
+interface Me {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+}
+interface LikesResponse {
+  id: number;
+  userId: number;
+  device_name: string;
+  user_argent: string;
+  ip_address: string;
+}
 
 const Home = () => {
   const [cmsMap, setCmsMap] = useState<Record<string, Cms>>({});
+  const [me, setMe] = useState<Me | null>(null);
+  const [likes, setLikes] = useState([]);
+  const [loadingLikes, setLoadingLikes] = useState(false)
+  const [liked, setLiked] = useState(false)
+  const [likeCount, setLikeCount] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [likeing, setLikeing] = useState(false)
   useEffect(() => {
      const fetchCms = async () => {
       try {
@@ -55,6 +75,105 @@ const Home = () => {
     }
   }, []);
 
+  
+  const fetchLikes = async () => {
+    setLoadingLikes(true)
+    try {
+      const res = await fetch('/api/likes')
+
+      const json = await res.json()
+      
+      setLikes(json)
+      setLikeCount(json.length)
+      setLoadingLikes(false)
+    } catch {
+      console.error('Error while fetching portofolio')
+      setLoadingLikes(false)
+    }
+  }
+
+  async function getClientIp(): Promise<string | null> {
+    try {
+      const res = await fetch("/api/get-ip");
+      if (!res.ok) return null;
+      const json = await res.json();
+      return json.ip ?? null;
+    } catch (err) {
+      console.warn("failed get ip", err);
+      return null;
+    }
+  }
+
+  function getDeviceDescriptor() {
+    // browser tidak beri "device name" nyata; kita bangun descriptor dari apa yg tersedia
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "unknown";
+    const platform = typeof navigator !== "undefined" ? (navigator as any).platform || "unknown" : "unknown";
+    const vendor = typeof navigator !== "undefined" ? (navigator as any).vendor || "unknown" : "unknown";
+    const width = typeof window !== "undefined" ? window.screen.width : 0;
+    const height = typeof window !== "undefined" ? window.screen.height : 0;
+
+    return `${platform} | ${vendor} | ${width}x${height} | ${ua}`;
+  }
+
+  async function handleLike() {
+    setLikeing(true);
+
+    try {
+      const device_name = getDeviceDescriptor();
+      const user_agent = typeof navigator !== "undefined" ? navigator.userAgent : "unknown";
+      const ip_address = await getClientIp(); // minta server
+
+      const body = {
+        user_id: me !== null ? me.id : null,
+        device_name,
+        user_agent,
+        ip_address,
+      };
+
+      await fetch("/api/likes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(body),
+      });
+    setLiked(true)
+    setLikeing(false);
+    setLikeCount(likeCount + 1)
+    setTimeout(() => {
+      setLiked(false)
+    }, 3000)
+    } catch (err) {
+      console.error("like failed", err);
+    } finally {
+      setLikeing(false);
+    }
+  }
+
+  
+  const fetchMe = async () => {
+    try {
+      const res = await fetch("/api/me", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (!res.ok) throw new Error("Unauthorized");
+
+      const json = await res.json();
+      setMe(json);
+    } catch {
+      console.warn("gagal fetch me, set semua self=false");
+      setMe(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchMe();
+    fetchLikes()
+  }, []);
 
   return (
     <>
@@ -95,7 +214,26 @@ const Home = () => {
                 className='custom-class !text-[17px] ' 
               />
               <span className="mt-4 text-justify">Saya berpengalaman dalam dunia pemograman sejak usia 11 tahun. Dengan pengalaman yang saya miliki saat ini, saya Antusias menciptakan berbagai solusi digital yang fungsional, termasuk <span className="bg-indigo-600 cursor-target px-1">website</span>,<span className="bg-indigo-600 px-1 cursor-target">aplikasi</span>, dan <span className="bg-indigo-600 px-1 cursor-target">design</span>.</span>
-              <div className="mt-4 flex flex-col gap-2">
+              <div className="relative mt-4 flex flex-col gap-2">
+                <button
+                  disabled={likeing}
+                  onClick={() => handleLike()}
+                  className="btn-77 flex-col mt-3 rounded-xl bg-indigo-600 text-white w-[55px] h-[55px] flex justify-center items-center absolute right-0 cursor-target"
+                >
+                  {likeing ? (
+                    <Loader2 className="animate-spin" size={20} />
+                  ) : liked ? (
+                    <Heart size={20} className="text-red-500 fill-red-500" />
+                  ) : (
+                    <Heart size={20} />
+                  )}
+                  <span className="text-[9px] mt-1">{likeCount ?? ""}</span>
+                  <div className="relative">
+                    <div className="text-[12px] cursor-target fade-out-like w-auto flex button-reminder-like p-2 bg-indigo-600 text-white">
+                      <span>Like Website Ini !</span>
+                    </div>
+                  </div>
+                </button>
                 <div className="flex gap-2 items-center">
                   <ChevronsRight className="text-indigo-400" /> 
                   <span>Terbuka untuk kesempatan kerjasama projek yang menarik</span>
@@ -125,7 +263,7 @@ const Home = () => {
                     className="count-up-text text-xl"
                   />+
                 </div>
-                <span className="text-sm text-gray-400">Client</span>
+                <span className="text-[10px] md:text-sm text-gray-400">Client</span>
               </div>
               <div className="bg-gray-700 cursor-target flex flex-col justify-center items-center font-bold w-full rounded-md h-[100px]">
                 <div className="flex">
@@ -138,9 +276,9 @@ const Home = () => {
                     className="count-up-text text-xl"
                   />+
                 </div>
-                <span className="text-sm text-gray-400">Projects</span>
+                <span className="text-[10px] md:text-sm text-gray-400">Projects</span>
               </div>
-              <div className="bg-gray-700 cursor-target flex flex-col justify-center items-center font-bold w-full rounded-md h-[100px]">
+              <div className="bg-gray-700 cursor-target text-center flex flex-col justify-center items-center font-bold w-full rounded-md h-[100px]">
                 <div className="flex">
                   <CountUp
                     from={0}
@@ -151,7 +289,7 @@ const Home = () => {
                     className="count-up-text text-xl"
                   />+
                 </div>
-                <span className="text-sm text-gray-400">Years Experience</span>
+                <span className="text-[10px] md:text-sm text-gray-400">Years Experience</span>
               </div>
             </div>
             <div className="w-full text-[15px] flex flex-col md:flex-row gap-3 justify-between pb-5">

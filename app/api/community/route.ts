@@ -17,7 +17,7 @@ export async function GET() {
   // if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const community = await prisma.community.findMany({
-    include: { user: true },
+    include: { User: true },
     orderBy: { createdAt: "desc" },
   })
   return NextResponse.json(community)

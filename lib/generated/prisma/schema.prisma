@@ -9,16 +9,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Cms {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String   @unique
+  content   String?
+  status    Status   @default(active)
   createdAt DateTime @default(now())
-  password  String
-  updatedAt DateTime @updatedAt
-  role      String
+  updatedAt DateTime
+}
 
-  communities Community[]
+model Community {
+  id        Int             @id @default(autoincrement())
+  userId    Int?
+  message   String
+  status    CommunityStatus @default(active)
+  createdAt DateTime        @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta'::text)"))
+  updatedAt DateTime        @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta'::text)"))
+  User      User?           @relation(fields: [userId], references: [id])
+}
+
+model Experience {
+  id          Int            @id @default(autoincrement())
+  type        ExperienceType
+  title       String
+  institution String
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  status      Status         @default(active)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Likes {
+  id          Int      @id(map: "likes_pkey") @default(autoincrement())
+  userId      Int?
+  device_name String?  @db.VarChar
+  user_argent String?  @db.VarChar
+  ip_address  String?  @db.VarChar
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  User        User?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "likes_userId_fkey")
 }
 
 model PortoJenis {
@@ -64,49 +95,27 @@ model Skill {
   updatedAt DateTime
 }
 
-model Community {
-  id        Int             @id @default(autoincrement())
-  userId    Int? // bisa null
-  user      User?           @relation(fields: [userId], references: [id])
-  message   String // isi pesan / deskripsi
-  status    CommunityStatus @default(active)
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-}
-
-model Experience {
-  id          Int            @id @default(autoincrement())
-  type        ExperienceType // kerja atau lomba
-  title       String
-  institution String // perusahaan, event, organisasi, kampus, dll
-  startDate   DateTime
-  endDate     DateTime?
-  description String?
-  status      Status         @default(active)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Cms {
-  id      Int     @id @default(autoincrement())
-  name    String
-  content String?
-  status  Status  @default(active)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum ExperienceType {
-  work
-  competition
+model User {
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String      @unique
+  createdAt DateTime    @default(now())
+  password  String
+  updatedAt DateTime
+  role      String
+  Community Community[]
+  Likes     Likes[]
 }
 
 enum CommunityStatus {
   active
   draft
   archived
+}
+
+enum ExperienceType {
+  work
+  competition
 }
 
 enum PortfolioStatus {

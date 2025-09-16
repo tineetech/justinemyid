@@ -29,12 +29,16 @@ const PageClient = () => {
   const [me, setMe] = useState<Me | null>(null);
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
+  const [autoScroll, setAutoScroll] = useState(true);
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   // auto scroll ke bawah setiap chats berubah
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (autoScroll && chats.length > 0) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      setAutoScroll(false);
+    }
   }, [chats]);
 
   const handleSend = async (e: React.FormEvent) => {
@@ -43,7 +47,7 @@ const PageClient = () => {
     setSending(true)
 
     const newMessage: ChatMessage = {
-      id: chats.length + 1,
+      id: chats.length + 2,
       user: me ? me.name : "Anonymus",
       role: me ? (me.role as "admin" | "Member") : null,
       avatar: me?.role ? me.role : "/images/anonymus-pp.png",
@@ -65,6 +69,7 @@ const PageClient = () => {
       });
       setChats((prev) => [...prev, newMessage]);
       setMessage("");
+      setAutoScroll(true); 
     } catch {
       console.error("error while create message in community");
     } finally {
