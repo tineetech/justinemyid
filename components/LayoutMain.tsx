@@ -12,7 +12,7 @@ const LayoutMain = ({ children }: { children: React.ReactNode }) => {
         borderColor='#1f2937'
         hoverFillColor='#374151'
       />
-      <div className='px-2 md:px-10 gap-7 w-full overlay-hidden h-screen flex items-center'>
+      <div className='md:px-10 gap-7 w-full overlay-hidden h-screen flex items-center'>
         <Sidebar />
         {children}
       </div>

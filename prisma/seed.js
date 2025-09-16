@@ -14,6 +14,7 @@ async function main() {
       email: "admin@gmail.com",
       password: hashedPassword,
       role: "admin",
+      updatedAt: new Date()
     },
   });
 

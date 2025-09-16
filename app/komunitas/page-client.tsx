@@ -46,19 +46,6 @@ const PageClient = () => {
     if (!message.trim() || sending) return;
     setSending(true)
 
-    const newMessage: ChatMessage = {
-      id: chats.length + 2,
-      user: me ? me.name : "Anonymus",
-      role: me ? (me.role as "admin" | "Member") : null,
-      avatar: me?.role ? me.role : "/images/anonymus-pp.png",
-      message,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      self: !!me,
-    };
-
     try {
       await fetch("/api/community", {
         method: "POST",
@@ -67,7 +54,8 @@ const PageClient = () => {
           message,
         }),
       });
-      setChats((prev) => [...prev, newMessage]);
+      // setChats((prev) => [...prev, newMessage]);
+      fetchComun(me, false);
       setMessage("");
       setAutoScroll(true); 
     } catch {
@@ -77,6 +65,19 @@ const PageClient = () => {
     }
 
   };
+
+  function formatDateString(dateStr: string) {
+    // Ambil bagian tanggal & waktu
+    const [datePart, timePart] = dateStr.split("T");
+
+    // Pisahkan yyyy-mm-dd
+    const [year, month, day] = datePart.split("-");
+
+    // Ambil jam & menit aja dari hh:mm:ss
+    const [hour, minute] = timePart.split(":");
+
+    return `${day}/${month}/${year}, ${hour}:${minute}`;
+  }
 
   const fetchComun = async (meUser: Me | null, withLoading = false) => {
     if (withLoading) setLoading(true);
@@ -92,30 +93,32 @@ const PageClient = () => {
       const mapped = sorted
       .filter((item: any) => item.status === "active")
       .map((item: any, index: number) => {
-        const date = new Date(item.createdAt);
-
-        // Konversi ke Waktu Indonesia Barat (WIB)
-        const timeWIB = date.toLocaleString("id-ID", {
-          timeZone: "Asia/Jakarta",
-          hour: "2-digit",
-          minute: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        });
+        // const date = new Date(item.createdAt.replace(" ", "T"));
+        // // console.log(date)
+        
+        // // Konversi ke Waktu Indonesia Barat (WIB)
+        // const timeWIB = date.toLocaleString("id-ID", {
+        //   timeZone: "Asia/Jakarta",
+        //   hour: "2-digit",
+        //   minute: "2-digit",
+        //   day: "2-digit",
+        //   month: "2-digit",
+        //   year: "numeric",
+        // });
+        // console.log("date asli :" + date)
+        // console.log("date wib :" + timeWIB)
 
         return {
           id: item.id ?? index,
-          user: item.user === null ? "Anonymus" : item.user.name,
-          role: item.user === null ? null : item.user.role,
+          user: item.User === null ? "Anonymus" : item.User.name,
+          role: item.User === null ? null : item.User.role,
           avatar:
-            item.user === null ? "/images/anonymus-pp.png" : item.user.avatar,
+            item.User === null ? "/images/anonymus-pp.png" : item.User.avatar,
           message: item.message,
-          time: timeWIB, // sudah WIB
+          time: formatDateString(item.createdAt),
           self: meUser ? meUser.id === item.userId : false,
         };
       });
-
 
       setChats(mapped);
     } catch {
@@ -152,7 +155,7 @@ const PageClient = () => {
   useEffect(() => {
     // Polling tiap 2 detik sekali
     const inv = setInterval(() => {
-      fetchComun(me, false); // tanpa loading supaya ga flicker
+      fetchComun(me, false);
     }, 5000);
 
     return () => clearInterval(inv);
