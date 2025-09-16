@@ -274,7 +274,7 @@ body.loaded { overflow-y: auto; }
   /* position: relative; */
   text-transform: uppercase;
 }
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .btn-77 {
     position: fixed;
     bottom: 20px;
