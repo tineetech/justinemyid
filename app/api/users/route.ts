@@ -40,6 +40,7 @@ export async function POST(req: Request) {
         email,
         role: role ?? 'guest',
         password: hashedPassword,
+        updatedAt: new Date()
       },
     });
 
