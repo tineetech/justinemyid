@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React from 'react';
+import TargetCursor from './TargetCursor';
 
 const SectionMain = ({ className = '', style = {}, children }: any) => {
   // Kelas default yang Anda inginkan
@@ -10,6 +11,10 @@ const SectionMain = ({ className = '', style = {}, children }: any) => {
 
   return (
     <section className={combinedClasses} style={style}>
+      <TargetCursor 
+        spinDuration={2}
+        hideDefaultCursor={true}
+      />
       {children}
     </section>
   );

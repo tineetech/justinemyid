@@ -6,6 +6,8 @@ import 'aos/dist/aos.css';
 import SectionMain from "@/components/SectionMain";
 import LayoutMain from "@/components/LayoutMain";
 import StarBorder from "@/components/StarBorder";
+import ShinyText from "@/components/ShinyText";
+import CountUp from "@/components/CountUp";
 
 interface Cms {
   no: number;
@@ -62,7 +64,7 @@ const Home = () => {
             <span className="line"></span>
         </div>
           <div className=" w-full h-[200px]" style={{background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%), url('images/bgheader.jpg')"}}>
-            <div className="box-image absolute top-[125px] mx-5 bg-gray-800 p-2 rounded-2xl">
+            <div className="box-image cursor-target absolute top-[125px] mx-5 bg-gray-800 p-2 rounded-2xl">
               {
                 loading ? (
                   <div className="overflow-hidden bg-gray-200 bg-opacity-30 animate-pulse border-gray-700 hover:bg-gray-700 transition rounded-2xl w-[120px] h-[120px]"></div>
@@ -80,12 +82,19 @@ const Home = () => {
           <div className="px-5">
           <div className="mt-[80px] md:px-3 pb-5">
             <div className="flex items-center gap-3">
-              <h1 className="text-4xl font-bold flex">Jus <div className="text-indigo-400">tine</div></h1>
+              <h1 className="text-4xl font-bold flex cursor-target">Jus <div className="text-indigo-400">tine</div></h1>
               <i className="fa fa-check-circle text-green-400 text-md" />
             </div>
             <div className="mt-3 flex flex-col">
-              <b>- Fullstack Developer Berpengalaman - </b>
-              <span className="mt-4 text-justify">Saya berpengalaman dalam dunia pemograman sejak usia 11 tahun. Dengan pengalaman yang saya miliki saat ini, saya Antusias menciptakan berbagai solusi digital yang fungsional, termasuk <span className="bg-indigo-600 px-1">website</span>,<span className="bg-indigo-600 px-1">aplikasi</span>, dan <span className="bg-indigo-600 px-1">design</span>.</span>
+              {/* <b>- Fullstack Developer Berpengalaman - </b> */}
+              
+              <ShinyText
+                text="- Fullstack Developer Berpengalaman -" 
+                disabled={false} 
+                speed={3} 
+                className='custom-class !text-[17px] ' 
+              />
+              <span className="mt-4 text-justify">Saya berpengalaman dalam dunia pemograman sejak usia 11 tahun. Dengan pengalaman yang saya miliki saat ini, saya Antusias menciptakan berbagai solusi digital yang fungsional, termasuk <span className="bg-indigo-600 cursor-target px-1">website</span>,<span className="bg-indigo-600 px-1 cursor-target">aplikasi</span>, dan <span className="bg-indigo-600 px-1 cursor-target">design</span>.</span>
               <div className="mt-4 flex flex-col gap-2">
                 <div className="flex gap-2 items-center">
                   <ChevronsRight className="text-indigo-400" /> 
@@ -104,20 +113,61 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full text-[15px] flex flex-col md:flex-row gap-3 justify-between py-5 mt-4">
-              <div onClick={() => window.open('mailto:justinebogor0609@gmail.com')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+            <div className="w-full grid-cols-3 grid gap-3 py-5 mt-4">
+              <div className="bg-gray-700 cursor-target flex flex-col justify-center items-center font-bold w-full rounded-md h-[100px]">
+                <div className="flex">
+                  <CountUp
+                    from={0}
+                    to={30}
+                    separator=","
+                    direction="up"
+                    duration={5}
+                    className="count-up-text text-xl"
+                  />+
+                </div>
+                <span className="text-sm text-gray-400">Client</span>
+              </div>
+              <div className="bg-gray-700 cursor-target flex flex-col justify-center items-center font-bold w-full rounded-md h-[100px]">
+                <div className="flex">
+                  <CountUp
+                    from={0}
+                    to={100}
+                    separator=","
+                    direction="up"
+                    duration={5}
+                    className="count-up-text text-xl"
+                  />+
+                </div>
+                <span className="text-sm text-gray-400">Projects</span>
+              </div>
+              <div className="bg-gray-700 cursor-target flex flex-col justify-center items-center font-bold w-full rounded-md h-[100px]">
+                <div className="flex">
+                  <CountUp
+                    from={0}
+                    to={4}
+                    separator=","
+                    direction="up"
+                    duration={5}
+                    className="count-up-text text-xl"
+                  />+
+                </div>
+                <span className="text-sm text-gray-400">Years Experience</span>
+              </div>
+            </div>
+            <div className="w-full text-[15px] flex flex-col md:flex-row gap-3 justify-between pb-5">
+              <div onClick={() => window.open('mailto:justinebogor0609@gmail.com')} className="w-full cursor-target flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Mail size={18} />
                 <span>Email</span>
               </div>
-              <div onClick={() => window.open('https://www.instagram.com/zerr.ace/')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+              <div onClick={() => window.open('https://www.instagram.com/zerr.ace/')} className="w-full cursor-target flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Instagram size={18} />
                 <span>Instagram</span>
               </div>
-              <div onClick={() => window.open('https://github.com/tineetech')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+              <div onClick={() => window.open('https://github.com/tineetech')} className="w-full cursor-target flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Github size={18} />
                 <span>Github</span>
               </div>
-              <div onClick={() => window.open('https://t.me/zerrzy')} className="w-full flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
+              <div onClick={() => window.open('https://t.me/zerrzy')} className="w-full cursor-target flex px-5 md:px-0 justify-start md:justify-center items-center gap-3 py-4 hover:text-indigo-400 transition-all ease-in-out cursor-pointer bg-gray-700 rounded-[10px]">
                 <Send size={18} />
                 <span>Telegram</span>
               </div>
@@ -134,7 +184,7 @@ const Home = () => {
                 <div className="w-full flex-col md:flex-row text-[15px] flex gap-3 justify-between">
                   <StarBorder
                     as="button"
-                    className="custom-class  w-full flex justify-center items-center py-4 cursor-pointer"
+                    className="custom-class  w-full flex justify-center items-center py-4 cursor-pointer cursor-target"
                     color=""
                     speed="5s"
                   >
@@ -145,7 +195,7 @@ const Home = () => {
                   </StarBorder>
                   <StarBorder
                     as="button"
-                    className="custom-class  w-full flex justify-center items-center py-4 cursor-pointer"
+                    className="custom-class  w-full flex justify-center items-center py-4 cursor-pointer cursor-target"
                     color=""
                     speed="5s"
                     >
@@ -157,7 +207,7 @@ const Home = () => {
                 </div>
                   <StarBorder
                     as="button"
-                    className="custom-class  w-full mt-3 flex justify-center items-center py-4 cursor-pointer"
+                    className="custom-class  w-full mt-3 flex justify-center items-center py-4 cursor-pointer cursor-target"
                     color=""
                     speed="5s"
                     >

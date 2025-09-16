@@ -20,6 +20,7 @@ model User {
   role      String
 
   communities Community[]
+  likes Likes[]
 }
 
 model PortoJenis {
@@ -94,6 +95,18 @@ model Cms {
   name        String
   content     String?
   status      Status          @default(active)
+
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model Likes {
+  id          Int             @id @default(autoincrement())
+  userId      Int?                          // bisa null
+  user        User?     @relation(fields: [userId], references: [id])
+  device_name String?
+  user_argent String?
+  ip_address  String?
 
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
